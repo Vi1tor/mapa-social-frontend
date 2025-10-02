@@ -1,4 +1,4 @@
-<!doctype html>
+<!-- <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -10,4 +10,104 @@
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/mapa-social/frontend/src/App.css">
+    <title>Mapa Social</title>
+    <body>
+
+    <header>
+        <h1>Mapa Social</h1>
+        <nav>
+        <a href="#">Home</a>
+        <a href="#">Sobre</a>
+        <a href="#">Contato</a>
+        <a href="#" class="cta">Entrar</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <section class="welcome">
+        <h2>
+            Bem-vindo ao 
+            <strong class="red">Mapa Social</strong>
+        </h2>
+        <p class="intro">
+            Encontre aqui os serviços sociais disponíveis para você!<br />
+            <em>Pensados para facilitar o acesso a saúde, educação, lazer e muito mais.</em>
+        </p>
+        </section>
+
+        <section class="search-box" aria-label="Campo de busca no mapa">
+        <input type="search" placeholder="Pesquise e explore no mapa social ..." aria-label="Pesquisar no mapa social" />
+        <!-- Ícone de lupa SVG -->
+        <svg role="img" aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+            <path d="M10 2a8 8 0 105.293 14.293l4.707 4.707 1.414-1.414-4.707-4.707A8 8 0 0010 2zm0 2a6 6 0 110 12 6 6 0 010-12z"/>
+        </svg>
+        </section>
+
+        <section id="map"></section>
+
+        <section class="services" aria-label="Lista de serviços sociais disponíveis">
+        <h3>Serviços disponíveis:</h3>
+        <div class="service-grid">
+            <div class="service-card" tabindex="0" title="Saúde Pública">
+            <img src="https://img.icons8.com/fluency/48/000000/health-book.png" alt="Ícone Saúde Pública" />
+            <span>Saúde Pública</span>
+            </div>
+            <div class="service-card" tabindex="0" title="Educação Pública">
+            <img src="https://img.icons8.com/fluency/48/000000/school.png" alt="Ícone Educação Pública" />
+            <span>Educação Pública</span>
+            </div>
+            <div class="service-card" tabindex="0" title="Lazer">
+            <img src="https://img.icons8.com/fluency/48/000000/park-bench.png" alt="Ícone Lazer" />
+            <span>Lazer</span>
+            </div>
+            <div class="service-card" tabindex="0" title="Alimentação">
+            <img src="https://img.icons8.com/fluency/48/000000/apple-food.png" alt="Ícone Alimentação" />
+            <span>Alimentação</span>
+            </div>
+            <div class="service-card" tabindex="0" title="Cursos Profissionalizantes Gratuitos">
+            <img src="https://img.icons8.com/fluency/48/000000/courses.png" alt="Ícone Cursos Profissionalizantes" />
+            <span>Cursos Profissionalizantes Gratuitos</span>
+            </div>
+            <div class="service-card" tabindex="0" title="Emissão de Documentos Gratuitos">
+            <img src="https://img.icons8.com/fluency/48/000000/documents.png" alt="Ícone Emissão de Documentos" />
+            <span>Emissão de Documentos Gratuitos</span>
+            </div>
+            <div class="service-card" tabindex="0" title="Transporte Público">
+            <img src="https://img.icons8.com/fluency/48/000000/bus.png" alt="Ícone Transporte Público" />
+            <span>Transporte Público</span>
+            </div>
+            <div class="service-card" tabindex="0" title="Moradia">
+            <img src="https://img.icons8.com/fluency/48/000000/home.png" alt="Ícone Moradia" />
+            <span>Moradia</span>
+            </div>
+            <div class="service-card" tabindex="0" title="Assistência Social">
+            <img src="https://img.icons8.com/fluency/48/000000/social.png" alt="Ícone Assistência Social" />
+            <span>Assistência Social</span>
+            </div>
+        </div>
+        </section>
+
+        <section class="suggestion">
+        <p>
+            Quer indicar um serviço? Clique aqui e faça sua sugestão!
+            <a href="#" title="Indicar um serviço">Indicar</a>
+        </p>
+        </section>
+    </div>
+
+    <footer>
+        <p>Direitos reservados, 2025.</p>
+    </footer>
+    <script src="script.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&callback=initMap" async defer></script>
+</body>
 </html>
