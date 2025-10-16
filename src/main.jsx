@@ -7,8 +7,6 @@ import { Sobre } from "./pages/Sobre";
 import { Contato } from "./pages/Contato";
 import { Login } from "./pages/Login";
 
-
-
 function App() {
   return (
     <BrowserRouter>
