@@ -1,38 +1,54 @@
 import { useState } from "react";
-import { Header } from "../components/Header/Header";
-import { Footer } from "../components/Footer/Footer";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import "./Login.css";
 
-export function Login({ onLogin }) {
+export default function Login() {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [senha, setSenha] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const { login } = useAuth();
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (email && password) {
-      onLogin(email);
+    setError("");
+    setLoading(true);
+
+    try {
+      const result = await login(email, senha);
+      if (result.success) {
+        navigate("/");
+      } else {
+        setError(result.error || "Erro ao fazer login");
+      }
+    } catch (err) {
+      setError("Erro ao fazer login. Verifique suas credenciais.");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="login-page">
-      <Header />
-
       <main className="login-main">
         <div className="login-wrapper">
           <h2>Faça Login</h2>
 
           <div className="login-form-container">
             <form onSubmit={handleSubmit} className="login-form">
+              {error && <div className="error-message">{error}</div>}
+
               <div>
                 <label>E-mail</label>
                 <input
                   type="email"
-                  placeholder="anapaulaa@gmail.com"
+                  placeholder="seu@email.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
+                  disabled={loading}
                 />
               </div>
 
@@ -41,9 +57,10 @@ export function Login({ onLogin }) {
                 <input
                   type="password"
                   placeholder="******"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  value={senha}
+                  onChange={(e) => setSenha(e.target.value)}
                   required
+                  disabled={loading}
                 />
               </div>
 
@@ -53,35 +70,20 @@ export function Login({ onLogin }) {
                 </Link>
               </div>
 
-              <button type="submit" className="submit-button">
-                Entrar
+              <button type="submit" className="submit-button" disabled={loading}>
+                {loading ? "Entrando..." : "Entrar"}
               </button>
             </form>
 
-            <div className="divider">
-              <span>Ou</span>
-            </div>
-
-            <div className="social-buttons">
-              <button className="social-button google">
-                <span>G</span> Faça login com Google
-              </button>
-              <button className="social-button x">
-                <span>𝕏</span> Faça login com X
-              </button>
-            </div>
-
             <div className="create-account">
               <span>Não tem uma conta? </span>
-              <Link to="/criar-conta" className="create-account-button">
+              <Link to="/cadastro" className="create-account-button">
                 Criar Conta
               </Link>
             </div>
           </div>
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 }
