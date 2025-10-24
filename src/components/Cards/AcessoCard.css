@@ -1,0 +1,24 @@
+.acesso-card {
+  background-color: #97b7d9f2;
+  border-radius: 12px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 180px;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease;
+}
+
+.acesso-card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.acesso-card-title {
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 1.125rem;
+  text-align: center;
+}

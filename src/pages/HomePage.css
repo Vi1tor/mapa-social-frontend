@@ -2,7 +2,7 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: #d4e4e2;
+  background-color: #97b7d9f2;
 }
 
 .home-main {
@@ -50,13 +50,13 @@
 }
 
 .hero-subtitle-main {
-  color: #568f3a;
+  color: #47762f;
   font-size: 1.25rem;
   font-weight: 600;
 }
 
 .hero-subtitle-secondary {
-  color: #568f3a;
+  color: #47762f;
   font-size: 1.125rem;
 }
 
@@ -75,14 +75,14 @@
   width: 100%;
   box-sizing: border-box;               
   padding: 16px 48px 16px 24px;         
-  border: 2px solid #9dbfbb;
+  border: 2px solid #99a6bf;
   border-radius: 12px;
   outline: none;
   color: #4a4a4a;
 }
 
 .search-input:focus {
-  border-color: #568f3a;
+  border-color: #365d89;
 }
 
 .search-icon {
@@ -130,7 +130,7 @@
   font-size: 2rem;
   font-weight: bold;
   text-align: center;
-  color: #2c4c6d;
+  color: #062f5a;
   margin-bottom: 48px;
 }
 
@@ -192,7 +192,7 @@
 }
 
 .cta-text {
-  color: #2c4c6d;
+  color: #062f5a;
   font-size: 1.125rem;
   font-weight: 600;
   margin-bottom: 16px;
@@ -209,6 +209,6 @@
 }
 
 .cta-button:hover {
-  color: #2c4c6d;
+  color: #062f5a;
   background-color: #b87720;
 }

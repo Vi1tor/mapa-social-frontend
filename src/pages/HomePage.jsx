@@ -1,6 +1,6 @@
 import { Header } from "../components/Header/Header";
 import { Footer } from "../components/Footer/Footer";
-import { ServiceCard } from "../components/ServiceCard/ServiceCard";
+import { ServiceCard } from "../components/Cards/ServiceCard";
 import { Link } from "react-router-dom";
 import "./HomePage.css";
 

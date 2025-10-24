@@ -2,7 +2,7 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: #d4e4e2;
+  background-color: #97b7d9f2;
 }
 
 .sobre-main {
@@ -19,7 +19,7 @@
 .intro-title {
   font-size: 2rem;
   font-weight: bold;
-  color: #d43c3c;
+  color: #387f46;
   margin-bottom: 32px;
 }
 
@@ -50,7 +50,7 @@
 .intro-subtitle {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #d43c3c;
+  color: #163758;
   line-height: 1.3;
 }
 

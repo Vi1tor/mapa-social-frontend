@@ -2,7 +2,7 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: #d4e4e2;
+  background-color: #97b7d9f2;
 }
 
 .contato-main {
@@ -13,7 +13,7 @@
 }
 
 .contato-container {
-  background-color: #d4e4d0;
+  background-color: #3d6a96;
   border-radius: 12px;
   padding: 48px 24px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
@@ -22,12 +22,12 @@
 .info-section h2 {
   font-size: 28px;
   font-weight: bold;
-  color: #2c4c6d;
+  color: #ffffff;
   margin-bottom: 24px;
 }
 
 .info-details {
-  color: #2c4c6d;
+  color: #c9c9c9;
   margin-bottom: 48px;
 }
 
@@ -40,7 +40,7 @@
   font-size: 24px;
   font-weight: bold;
   text-align: center;
-  color: #2c4c6d;
+  color: #d48d28;
   margin-bottom: 32px;
 }
 
@@ -58,8 +58,8 @@
   width: 95%;
   padding: 16px;
   border-radius: 8px;
-  border: 2px solid #d4e4d0;
-  background-color: #9dbfbb;
+  border: 2px solid #7893b8;
+  background-color: #97b7d9f2;
   color: white;
   font-size: 16px;
 }
@@ -67,7 +67,7 @@
 .contact-form input:focus,
 .contact-form textarea:focus {
   outline: none;
-  border-color: #568f3a;
+  border-color: #3a658f;
 }
 
 .contact-form textarea {

@@ -1,8 +1,8 @@
 .header {
-  background-color: #9dbfbb;
+  background-color: #375676;
   padding: 8px 24px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-  width: 96,8%;
+  width: 96.8%;
   position: relative;
   z-index: 10;
 }
@@ -16,18 +16,17 @@
   justify-content: space-between;
 }
 
-/* Logo e título */
 .header-logo {
   display: flex;
   align-items: center;
   gap: 8px;
-  color: #2c4c6d;
+  color: #c7bfbf;
   text-decoration: none;
   transition: opacity 0.3s ease;
 }
 
 .header-logo:hover {
-  color: #2c4c6d;
+  color: #a9a3a3;
   opacity: 0.8;
 }
 
@@ -48,7 +47,6 @@
   }
 }
 
-/* === MENU HAMBÚRGUER === */
 .hamburger {
   display: block;
   background: none;
@@ -56,7 +54,7 @@
   outline: none;
   cursor: pointer;
   padding: 8px;
-  z-index: 30; /* acima do menu */
+  z-index: 30; 
 }
 
 .hamburger:focus {
@@ -73,7 +71,6 @@
   transition: all 0.3s ease;
 }
 
-/* Animação do ícone em X */
 .hamburger.active .bar:nth-child(1) {
   transform: translateY(8px) rotate(45deg);
 }
@@ -86,11 +83,10 @@
   transform: translateY(-8px) rotate(-45deg);
 }
 
-/* === MENU LATERAL DIREITO (MOBILE) === */
 .header-nav {
   position: fixed;
   top: 0;
-  right: 0; /* vem da direita */
+  right: 0; 
   height: 100vh;
   width: 70%;
   max-width: 280px;
@@ -110,7 +106,6 @@
   transform: translateX(0);
 }
 
-/* Esconde o menu lateral no desktop */
 @media (min-width: 768px) {
   .hamburger {
     display: none;
@@ -131,7 +126,7 @@
 }
 
 .nav-link {
-  color: #2c4c6d;
+  color: #c7bfbf;
   font-weight: 500;
   text-decoration: none;
   transition: color 0.3s ease;
@@ -141,13 +136,11 @@
   color: #568f3a;
 }
 
-/* Página ativa */
 .nav-active {
   color: #568f3a;
   font-weight: 600;
 }
 
-/* Botão "Acessar" e "Sair" */
 .button-access {
   background-color: #d48d28;
   color: white;
@@ -161,11 +154,10 @@
 }
 
 .button-access:hover {
-  color: #2c4c6d;
+  color: #062f5a;
   background-color: #b87720;
 }
 
-/* Usuário logado */
 .user-info {
   display: flex;
   align-items: center;
@@ -185,4 +177,13 @@
 .user-initial {
   color: #2c4c6d;
   font-weight: 600;
+}
+
+.header-container.header-acesso {
+  justify-content: flex-start;
+}
+
+.header-container.header-acesso .button-access {
+  margin-left: auto; 
+  flex-shrink: 0; 
 }

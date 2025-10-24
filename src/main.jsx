@@ -1,11 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
 import { HomePage } from "./pages/HomePage";
 import { Sobre } from "./pages/Sobre";
 import { Contato } from "./pages/Contato";
 import { Login } from "./pages/Login";
+import { Acesso } from "./pages/Acesso.jsx";
 
 function App() {
   return (
@@ -18,6 +18,7 @@ function App() {
           <Route path="/sobre" element={<Sobre />} />
           <Route path="/contato" element={<Contato />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/acesso" element={<Acesso onLogin={(email) => console.log("Logou com:", email)} />} />
         </Routes>
       </main>
       
