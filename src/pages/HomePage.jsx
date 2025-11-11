@@ -14,7 +14,7 @@ export function HomePage() {
         <section className="hero-section">
           <div className="hero-content">
             <h2 className="hero-title">
-              Bem-vindo ao <span className="highlight-red">Mapa Social</span>
+              Bem-vindo ao <span className="highlight">Mapa Social</span>
             </h2>
 
             <div className="hero-subtitle">

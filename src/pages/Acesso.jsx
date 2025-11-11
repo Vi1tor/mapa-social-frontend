@@ -22,7 +22,7 @@ export function Acesso({ onLogin, userName = "Usuário" }) {
       <main className="acesso-main">
         <div className="acesso-wrapper">
           <h2 className="hero-title">
-            Olá {userName} <span className="highlight-red">Seja Bem-vindo(a)</span>
+            Olá {userName} <span className="highlight">Seja Bem-vindo(a)</span>
           </h2>
 
           <section className="acesso-section">

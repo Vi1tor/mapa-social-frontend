@@ -2,7 +2,7 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: #97b7d9f2;
+  background-color: #f6f7f8;
 }
 
 .sobre-main {
@@ -19,7 +19,7 @@
 .intro-title {
   font-size: 2rem;
   font-weight: bold;
-  color: #387f46;
+  color: #233e83;
   margin-bottom: 32px;
 }
 
@@ -50,7 +50,7 @@
 .intro-subtitle {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #163758;
+  color: #1f456b;
   line-height: 1.3;
 }
 
@@ -69,13 +69,13 @@
 }
 
 .intro-link .highlight-link {
-  color: #568f3a;
+  color: #262ca5;
   text-decoration: underline;
   transition: color 0.3s ease;
 }
 
 .intro-link .highlight-link:hover {
-  color: #d48d28;
+  color: #5285ea;
 }
 
 .intro-image-container {
@@ -84,7 +84,7 @@
 }
 
 .image-card {
-  background-color: d4e4e2;
+  background-color: #bfcadb72;
   padding: 32px;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -171,7 +171,7 @@
 .objective-title {
   font-size: 2rem;
   font-weight: bold;
-  color: #2c4c6d;
+  color: #163758;
 }
 
 @media (min-width: 768px) {

@@ -6,6 +6,7 @@ import Sobre from "./components/AboutSection/Section.jsx";
 import Contato from "./pages/Contato.jsx";
 import Login from "./pages/Login.jsx";
 import Acesso from "./pages/Acesso";
+import Cadastro from "./pages/Cadastro.jsx";
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
         <Route path="/contato" element={<Contato />} />
         <Route path="/login" element={<Login />} />
         <Route path="/acesso" element={<Acesso onLogin={(email) => console.log("Logou com:", email)} />} />
+        <Route path="/cadastro" element={<Cadastro />} />
       </Routes>
       <Footer />
     </Router>

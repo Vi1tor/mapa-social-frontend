@@ -6,6 +6,7 @@ import { Sobre } from "./pages/Sobre";
 import { Contato } from "./pages/Contato";
 import { Login } from "./pages/Login";
 import { Acesso } from "./pages/Acesso.jsx";
+import { Cadastro } from "./pages/Cadastro.jsx";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/contato" element={<Contato />} />
           <Route path="/login" element={<Login />} />
           <Route path="/acesso" element={<Acesso onLogin={(email) => console.log("Logou com:", email)} />} />
+          <Route path="/cadastro" element={<Cadastro />} />
         </Routes>
       </main>
       

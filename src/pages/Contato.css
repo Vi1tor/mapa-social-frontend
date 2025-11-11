@@ -2,7 +2,7 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: #97b7d9f2;
+  background-color: #f6f7f8;
 }
 
 .contato-main {
@@ -13,7 +13,7 @@
 }
 
 .contato-container {
-  background-color: #3d6a96;
+  background-color: #c9d2df;
   border-radius: 12px;
   padding: 48px 24px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
@@ -22,12 +22,12 @@
 .info-section h2 {
   font-size: 28px;
   font-weight: bold;
-  color: #ffffff;
+  color: #233e83;
   margin-bottom: 24px;
 }
 
 .info-details {
-  color: #c9c9c9;
+  color: #2c4c6d;
   margin-bottom: 48px;
 }
 
@@ -40,34 +40,42 @@
   font-size: 24px;
   font-weight: bold;
   text-align: center;
-  color: #d48d28;
+  color: #233e83;
   margin-bottom: 32px;
 }
 
 .contact-form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 24px;
   max-width: 400px;
   margin: 0 auto;
   justify-content: center;
 }
 
+.contact-form label {
+  display: block;
+  text-align: left;
+  font-weight: 600;
+  color: #141b7d;
+  margin-bottom: 8px;
+}
+
 .contact-form input,
 .contact-form textarea {
-  width: 95%;
+  width: 93%;
   padding: 16px;
   border-radius: 8px;
-  border: 2px solid #7893b8;
-  background-color: #97b7d9f2;
-  color: white;
+  border: 2px solid #b2bdd6;
+  background-color: #fffffff2;
+  color: #141b7d;
   font-size: 16px;
 }
 
 .contact-form input:focus,
 .contact-form textarea:focus {
   outline: none;
-  border-color: #3a658f;
+  border-color: #3a528f;
 }
 
 .contact-form textarea {
@@ -80,7 +88,7 @@
 }
 
 .submit-button-container button {
-  background-color: #d48d28;
+  background-color: #233e83;
   color: white;
   padding: 12px 48px;
   border: none;
@@ -91,5 +99,5 @@
 }
 
 .submit-button-container button:hover {
-  background-color: #b87720;
+  background-color: #1d305f;
 }

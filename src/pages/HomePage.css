@@ -2,7 +2,7 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: #97b7d9f2;
+  background-color: #f6f7f8;
 }
 
 .home-main {
@@ -39,8 +39,8 @@
   }
 }
 
-.highlight-red {
-  color: #d43c3c;
+.highlight {
+  color: #7692ca;
 }
 
 .hero-subtitle {
@@ -50,13 +50,13 @@
 }
 
 .hero-subtitle-main {
-  color: #47762f;
+  color: #233e83;
   font-size: 1.25rem;
   font-weight: 600;
 }
 
 .hero-subtitle-secondary {
-  color: #47762f;
+  color: #233e83;
   font-size: 1.125rem;
 }
 
@@ -130,7 +130,7 @@
   font-size: 2rem;
   font-weight: bold;
   text-align: center;
-  color: #062f5a;
+  color: #233e83;
   margin-bottom: 48px;
 }
 
@@ -200,7 +200,7 @@
 
 .cta-button {
   display: inline-block;
-  background-color: #d48d28;
+  background-color: #233e83;
   color: white;
   padding: 12px 32px;
   border-radius: 12px;
@@ -209,6 +209,6 @@
 }
 
 .cta-button:hover {
-  color: #062f5a;
-  background-color: #b87720;
+  color: #feffff;
+  background-color: #1d305f;
 }

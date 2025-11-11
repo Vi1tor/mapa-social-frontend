@@ -1,5 +1,5 @@
 .service-card {
-  background-color: #3d6a96;
+  background-color: #c9d2df;
   border-radius: 12px;
   padding: 32px;
   display: flex;
@@ -13,7 +13,7 @@
 }
 
 .service-card:hover {
-  box-shadow: 0 8px 24px rgba(0, 0, 255, 0.15);
+  box-shadow: 0 8px 24px rgb(132, 157, 214);
 }
 
 .service-card-icon {
@@ -22,7 +22,7 @@
 }
 
 .service-card-title {
-  color: #ffffff;
+  color: #233e83;
   font-weight: 600;
   font-size: 1.125rem;
   text-align: center;

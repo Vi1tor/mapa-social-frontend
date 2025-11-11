@@ -1,5 +1,5 @@
 .footer {
-  background-color: #375676; /* Mesmo bg do Tailwind (#D4E4E2) */
+  background-color: #f6f7f8; /* Mesmo bg do Tailwind (#D4E4E2) */
   padding: 0;          /* Equivale ao py-6 (6 * 4px = 24px) */
   margin-top: auto;
 }
@@ -12,6 +12,6 @@
 }
 
 .footer-text {
-  color: #ffffff;           /* Mesmo text color */
+  color: #193871;           /* Mesmo text color */
   font-size: 0.875rem;      /* text-sm (14px) */
 }

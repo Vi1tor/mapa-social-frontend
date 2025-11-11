@@ -2,8 +2,8 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: #97b7d9f2;
-  color: #ffffff;
+  background-color: #f6f7f8;
+  color: #233e83;
 }
 
 .acesso-main {
@@ -30,8 +30,8 @@
   margin-bottom: 48px;
 }
 
-.highlight-red {
-  color: #d43c3c;
+.highlight {
+  color: #233e83;
 }
 
 .acesso-section {

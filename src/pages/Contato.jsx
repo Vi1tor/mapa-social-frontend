@@ -29,7 +29,10 @@ export function Contato() {
             <div className="info-details">
               <div>
                 <h3>Endereço:</h3>
-                <p>Av. Antonio Pires Pimentel, 2015 - Centro, Bragança Paulista - SP, 12914-900.</p>
+                <p>
+                  Av. Antonio Pires Pimentel, 2015 - Centro, Bragança Paulista -
+                  SP, 12914-900.
+                </p>
               </div>
 
               <div>
@@ -45,33 +48,57 @@ export function Contato() {
             <h3>Contate-nos</h3>
 
             <form onSubmit={handleSubmit} className="contact-form">
-              <input
-                type="text"
-                placeholder="Ana Paula"
-                value={formData.nome}
-                onChange={(e) => setFormData({ ...formData, nome: e.target.value })}
-              />
+              <div>
+                <label>Nome</label>
+                <input
+                  type="text"
+                  placeholder="Ana Paula"
+                  value={formData.nome}
+                  onChange={(e) =>
+                    setFormData({ ...formData, nome: e.target.value })
+                  }
+                  required
+                />
+              </div>
 
-              <input
-                type="tel"
-                placeholder="(11)99999-0000"
-                value={formData.telefone}
-                onChange={(e) => setFormData({ ...formData, telefone: e.target.value })}
-              />
+              <div>
+                <label>Telefone</label>
+                <input
+                  type="tel"
+                  placeholder="(11) 99999-0000"
+                  value={formData.telefone}
+                  onChange={(e) =>
+                    setFormData({ ...formData, telefone: e.target.value })
+                  }
+                  required
+                />
+              </div>
 
-              <input
-                type="email"
-                placeholder="ana@gmail.com"
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              />
+              <div>
+                <label>E-mail</label>
+                <input
+                  type="email"
+                  placeholder="ana@gmail.com"
+                  value={formData.email}
+                  onChange={(e) =>
+                    setFormData({ ...formData, email: e.target.value })
+                  }
+                  required
+                />
+              </div>
 
-              <textarea
-                placeholder="Deixe sua mensagem..."
-                value={formData.mensagem}
-                onChange={(e) => setFormData({ ...formData, mensagem: e.target.value })}
-                rows={6}
-              />
+              <div>
+                <label>Mensagem</label>
+                <textarea
+                  placeholder="Deixe sua mensagem..."
+                  value={formData.mensagem}
+                  onChange={(e) =>
+                    setFormData({ ...formData, mensagem: e.target.value })
+                  }
+                  rows={6}
+                  required
+                />
+              </div>
 
               <div className="submit-button-container">
                 <button type="submit">ENVIAR</button>

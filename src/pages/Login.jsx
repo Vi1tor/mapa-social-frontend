@@ -29,7 +29,7 @@ export function Login({ onLogin }) {
                 <label>E-mail</label>
                 <input
                   type="email"
-                  placeholder="anapaulaa@gmail.com"
+                  placeholder="E-mail"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
@@ -73,7 +73,7 @@ export function Login({ onLogin }) {
 
             <div className="create-account">
               <span>Não tem uma conta? </span>
-              <Link to="/criar-conta" className="create-account-button">
+              <Link to="/cadastro" className="create-account-button">
                 Criar Conta
               </Link>
             </div>
