@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Header } from "../components/Header/Header";
 import { Footer } from "../components/Footer/Footer";
 import { ServiceCard } from "../components/Cards/ServiceCard";
@@ -5,6 +6,46 @@ import { Link } from "react-router-dom";
 import "./HomePage.css";
 
 export function HomePage() {
+  const [selectedServices, setSelectedServices] = useState([]);
+  const [searchText, setSearchText] = useState("");
+
+  const handleCardClick = (serviceName) => {
+    setSelectedServices((prevSelected) => {
+      if (prevSelected.includes(serviceName)) {
+        // Se já estava selecionado, remove
+        const updated = prevSelected.filter((s) => s !== serviceName);
+        setSearchText(updated.join(", "));
+        return updated;
+      } else {
+        // Adiciona o novo serviço
+        const updated = [...prevSelected, serviceName];
+        setSearchText(updated.join(", "));
+        return updated;
+      }
+    });
+  };
+
+  const handleSearchChange = (e) => {
+    setSearchText(e.target.value);
+  };
+
+  const handleSearch = () => {
+    // Aqui futuramente você pode integrar com o filtro real do mapa
+    console.log("Buscando por:", searchText);
+  };
+
+  const services = [
+    { icon: "/src/assets/images/saude-publica.png", title: "Saúde", subtitle: "Pública" },
+    { icon: "/src/assets/images/educacao-publica.png", title: "Educação", subtitle: "Pública" },
+    { icon: "/src/assets/images/lazer.png", title: "Lazer" },
+    { icon: "/src/assets/images/alimentacao.png", title: "Alimentação" },
+    { icon: "/src/assets/images/cursos-profissionalizantes.png", title: "Cursos", subtitle: "Profissionalizantes" },
+    { icon: "/src/assets/images/emissao-de-documentos.png", title: "Emissão de", subtitle: "Documentos Gratuitos" },
+    { icon: "/src/assets/images/transporte-publico.png", title: "Transporte", subtitle: "Público" },
+    { icon: "/src/assets/images/moradia.png", title: "Moradia" },
+    { icon: "/src/assets/images/assistencia-social.png", title: "Assistência", subtitle: "Social" },
+  ];
+
   return (
     <div className="home-page">
       <Header currentPage="home" />
@@ -22,7 +63,7 @@ export function HomePage() {
                 Encontre aqui os serviços sociais disponíveis para você!
               </p>
               <p className="hero-subtitle-secondary">
-                Pensado para facilitar o acesso a saúde, educação, lazer e muito mais.
+                Pensado para facilitar o acesso à saúde, educação, lazer e muito mais.
               </p>
             </div>
 
@@ -33,11 +74,15 @@ export function HomePage() {
                   type="text"
                   placeholder="Pesquise e explore o mapa social ..."
                   className="search-input"
+                  value={searchText}
+                  onChange={handleSearchChange}
                 />
                 <img
                   src="/src/assets/icons/lupa.png"
                   alt="Buscar"
                   className="search-icon"
+                  onClick={handleSearch}
+                  style={{ cursor: "pointer" }}
                 />
               </div>
             </div>
@@ -56,48 +101,22 @@ export function HomePage() {
           <h3 className="services-title">Serviços disponíveis:</h3>
 
           <div className="services-grid">
-            <ServiceCard
-              iconSrc="/src/assets/images/saude-publica.png"
-              title="Saúde"
-              subtitle="Pública"
-            />
-            <ServiceCard
-              iconSrc="/src/assets/images/educacao-publica.png"
-              title="Educação"
-              subtitle="Pública"
-            />
-            <ServiceCard
-              iconSrc="/src/assets/images/lazer.png"
-              title="Lazer"
-            />
-            <ServiceCard
-              iconSrc="/src/assets/images/alimentacao.png"
-              title="Alimentação"
-            />
-            <ServiceCard
-              iconSrc="/src/assets/images/cursos-profissionalizantes.png"
-              title="Cursos"
-              subtitle="Profissionalizantes"
-            />
-            <ServiceCard
-              iconSrc="/src/assets/images/emissao-de-documentos.png"
-              title="Emissão de"
-              subtitle="Documentos Gratuitos"
-            />
-            <ServiceCard
-              iconSrc="/src/assets/images/transporte-publico.png"
-              title="Transporte"
-              subtitle="Público"
-            />
-            <ServiceCard
-              iconSrc="/src/assets/images/moradia.png"
-              title="Moradia"
-            />
-            <ServiceCard
-              iconSrc="/src/assets/images/assistencia-social.png"
-              title="Assistência"
-              subtitle="Social"
-            />
+            {services.map((service, index) => (
+              <ServiceCard
+                key={index}
+                iconSrc={service.icon}
+                title={service.title}
+                subtitle={service.subtitle}
+                selected={selectedServices.includes(
+                  service.subtitle ? `${service.title} ${service.subtitle}` : service.title
+                )}
+                onClick={() =>
+                  handleCardClick(
+                    service.subtitle ? `${service.title} ${service.subtitle}` : service.title
+                  )
+                }
+              />
+            ))}
           </div>
         </section>
 

@@ -75,10 +75,11 @@
   width: 100%;
   box-sizing: border-box;               
   padding: 16px 48px 16px 24px;         
-  border: 2px solid #99a6bf;
+  border: 2px solid #b2bdd6;
   border-radius: 12px;
   outline: none;
-  color: #4a4a4a;
+  color: #000000;
+  background-color: #ffffff;
 }
 
 .search-input:focus {
@@ -103,7 +104,7 @@
   background-color: #e5e7eb;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .map-placeholder-content {

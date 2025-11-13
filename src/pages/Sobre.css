@@ -5,16 +5,47 @@
   background-color: #f6f7f8;
 }
 
+/* Mantém a largura e centralização */
 .sobre-main {
   flex: 1;
-  max-width: 1120px;
-  margin: 0 auto;
+  display: flex;
+  justify-content: center;
   padding: 48px 24px;
 }
 
-.intro-section {
+/* NOVO CONTAINER CENTRAL */
+.sobre-container {
+  width: 100%;
+  max-width: 1120px;
+  background-color: #ffffff;
+  border-radius: 20px;
+  padding: 48px 40px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+/* Sutil destaque ao passar o mouse */
+.sobre-container:hover {
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .sobre-container {
+    padding: 32px 24px;
+    border-radius: 16px;
+  }
+}
+
+/* Seções internas */
+.intro-section,
+.why-section,
+.objective-section {
   margin-bottom: 64px;
 }
+
+/* ---------- Seções existentes abaixo ---------- */
 
 .intro-title {
   font-size: 2rem;
@@ -97,7 +128,6 @@
 }
 
 .why-section {
-  margin-bottom: 64px;
   background-color: rgba(255, 255, 255, 0.3);
   border-radius: 12px;
   padding: 32px;
@@ -144,10 +174,6 @@
 .why-image-container {
   display: flex;
   justify-content: center;
-}
-
-.objective-section {
-  margin-bottom: 64px;
 }
 
 .objective-grid {
