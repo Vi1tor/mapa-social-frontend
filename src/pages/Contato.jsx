@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { Header } from "../components/Header/Header";
-import { Footer } from "../components/Footer/Footer";
 import "./Contato.css";
 
 export function Contato() {
@@ -18,11 +16,8 @@ export function Contato() {
 
   return (
     <div className="contato-page">
-      <Header currentPage="contato" />
-
       <main className="contato-main">
         <div className="contato-container">
-          {/* Info Section */}
           <div className="info-section">
             <h2>Prefeitura de Bragança Paulista</h2>
 
@@ -43,7 +38,6 @@ export function Contato() {
             </div>
           </div>
 
-          {/* Contact Form */}
           <div className="form-section">
             <h3>Contate-nos</h3>
 
@@ -107,8 +101,6 @@ export function Contato() {
           </div>
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 }

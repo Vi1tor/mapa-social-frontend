@@ -5,7 +5,6 @@
   background-color: #f6f7f8;
 }
 
-/* Mantém a largura e centralização */
 .sobre-main {
   flex: 1;
   display: flex;
@@ -13,7 +12,6 @@
   padding: 48px 24px;
 }
 
-/* NOVO CONTAINER CENTRAL */
 .sobre-container {
   width: 100%;
   max-width: 1120px;
@@ -24,13 +22,11 @@
   transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
-/* Sutil destaque ao passar o mouse */
 .sobre-container:hover {
   box-shadow: 0 10px 32px rgba(0, 0, 0, 0.12);
   transform: translateY(-2px);
 }
 
-/* Responsividade */
 @media (max-width: 768px) {
   .sobre-container {
     padding: 32px 24px;
@@ -38,14 +34,11 @@
   }
 }
 
-/* Seções internas */
 .intro-section,
 .why-section,
 .objective-section {
   margin-bottom: 64px;
 }
-
-/* ---------- Seções existentes abaixo ---------- */
 
 .intro-title {
   font-size: 2rem;

@@ -1,23 +1,20 @@
 import { useState } from "react";
-import { Header } from "../components/Header/Header";
-import { Footer } from "../components/Footer/Footer";
 import { ServiceCard } from "../components/Cards/ServiceCard";
 import { Link } from "react-router-dom";
 import "./HomePage.css";
+import MapPage from "./Map.jsx";
 
-export function HomePage() {
+function HomePage() {
   const [selectedServices, setSelectedServices] = useState([]);
   const [searchText, setSearchText] = useState("");
 
   const handleCardClick = (serviceName) => {
     setSelectedServices((prevSelected) => {
       if (prevSelected.includes(serviceName)) {
-        // Se já estava selecionado, remove
         const updated = prevSelected.filter((s) => s !== serviceName);
         setSearchText(updated.join(", "));
         return updated;
       } else {
-        // Adiciona o novo serviço
         const updated = [...prevSelected, serviceName];
         setSearchText(updated.join(", "));
         return updated;
@@ -30,7 +27,6 @@ export function HomePage() {
   };
 
   const handleSearch = () => {
-    // Aqui futuramente você pode integrar com o filtro real do mapa
     console.log("Buscando por:", searchText);
   };
 
@@ -48,10 +44,7 @@ export function HomePage() {
 
   return (
     <div className="home-page">
-      <Header currentPage="home" />
-
       <main className="home-main">
-        {/* Hero Section */}
         <section className="hero-section">
           <div className="hero-content">
             <h2 className="hero-title">
@@ -67,7 +60,6 @@ export function HomePage() {
               </p>
             </div>
 
-            {/* Search Bar */}
             <div className="search-bar-container">
               <div className="search-bar">
                 <input
@@ -87,16 +79,13 @@ export function HomePage() {
               </div>
             </div>
 
-            {/* Map Placeholder */}
+            {/* Mapa Interativo */}
             <div className="map-placeholder">
-              <div className="map-placeholder-content">
-                <p className="map-text">Mapa Interativo de Bragança Paulista</p>
-              </div>
+              <MapPage height="100%" />
             </div>
           </div>
         </section>
 
-        {/* Services Section */}
         <section className="services-section">
           <h3 className="services-title">Serviços disponíveis:</h3>
 
@@ -120,7 +109,6 @@ export function HomePage() {
           </div>
         </section>
 
-        {/* CTA Section */}
         <section className="cta-section">
           <p className="cta-text">
             Quer indicar um serviço? Clique aqui e faça sua sugestão!
@@ -130,8 +118,8 @@ export function HomePage() {
           </Link>
         </section>
       </main>
-
-      <Footer />
     </div>
   );
 }
+
+export default HomePage;

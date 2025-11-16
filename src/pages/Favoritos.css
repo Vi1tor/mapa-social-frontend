@@ -1,0 +1,170 @@
+.favoritos-page {
+  min-height: 100vh;
+  background-color: #f6f7f8;
+}
+
+.favoritos-main {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 48px 24px;
+}
+
+.favoritos-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.favoritos-header {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.back-button {
+  background-color: #7692ca;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.back-button:hover {
+  background-color: #5a7bb8;
+}
+
+.favoritos-header h2 {
+  font-size: 2rem;
+  color: #233e83;
+  margin: 0;
+}
+
+.loading-text {
+  text-align: center;
+  color: #6b7280;
+  font-size: 1.125rem;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 64px 24px;
+}
+
+.empty-state p {
+  color: #6b7280;
+  font-size: 1.125rem;
+  margin-bottom: 24px;
+}
+
+.cta-button {
+  display: inline-block;
+  background-color: #233e83;
+  color: white;
+  padding: 12px 32px;
+  border-radius: 12px;
+  border: none;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.cta-button:hover {
+  background-color: #1d305f;
+}
+
+.favoritos-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.favorito-card {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+}
+
+.favorito-info h3 {
+  color: #233e83;
+  font-size: 1.25rem;
+  margin: 0 0 8px 0;
+}
+
+.favorito-categoria {
+  color: #7692ca;
+  font-weight: 600;
+  margin: 4px 0;
+}
+
+.favorito-endereco {
+  color: #6b7280;
+  margin: 4px 0;
+}
+
+.favorito-actions {
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.btn-ver,
+.btn-remover {
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-ver {
+  background-color: #7692ca;
+  color: white;
+}
+
+.btn-ver:hover {
+  background-color: #5a7bb8;
+}
+
+.btn-remover {
+  background-color: #ef4444;
+  color: white;
+}
+
+.btn-remover:hover {
+  background-color: #dc2626;
+}
+
+@media (max-width: 768px) {
+  .favoritos-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .favoritos-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .favorito-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .favorito-actions {
+    width: 100%;
+  }
+
+  .btn-ver,
+  .btn-remover {
+    flex: 1;
+  }
+}

@@ -1,24 +1,16 @@
-import { useState } from "react";
-import { Header } from "../components/Header/Header";
-import { Footer } from "../components/Footer/Footer";
+import { useNavigate } from "react-router-dom";
 import { AcessoCard } from "../components/Cards/AcessoCard";
 import "./Acesso.css"; 
 
 export function Acesso({ onLogin, userName = "Usuário" }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (email && password) {
-      onLogin(email);
-    }
+  const handleCardClick = (destination) => {
+    navigate(destination);
   };
 
   return (
     <div className="acesso-page">
-      <Header />
-
       <main className="acesso-main">
         <div className="acesso-wrapper">
           <h2 className="hero-title">
@@ -29,16 +21,14 @@ export function Acesso({ onLogin, userName = "Usuário" }) {
             <h3 className="services-title">O que deseja fazer?</h3>
 
             <div className="acesso-grid">
-              <AcessoCard title="Acessar o Mapa Social" />
-              <AcessoCard title="Serviços Favoritos" />
-              <AcessoCard title="Acompanhar Sugestões" />
-              <AcessoCard title="Visualizar Notícias" />
+              <AcessoCard title="Acessar o Mapa Social" onClick={() => handleCardClick('/map')} />
+              <AcessoCard title="Serviços Favoritos" onClick={() => handleCardClick('/favoritos')} />
+              <AcessoCard title="Acompanhar Sugestões" onClick={() => handleCardClick('/sugestoes')} />
+              <AcessoCard title="Visualizar Notícias" onClick={() => handleCardClick('/noticias')} />
             </div>
           </section>
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 }

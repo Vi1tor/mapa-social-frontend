@@ -1,13 +1,9 @@
-import { Header } from "../components/Header/Header";
-import { Footer } from "../components/Footer/Footer";
 import { Link } from "react-router-dom";
 import "./Sobre.css";
 
 export function Sobre() {
   return (
     <div className="sobre-page">
-      <Header currentPage="sobre" />
-
       <main className="sobre-main">
         {/* Container central para o conteúdo */}
         <div className="sobre-container">
@@ -58,8 +54,7 @@ export function Sobre() {
             </div>
           </section>
 
-          {/* Porque existimos Section */}
-          <section className="why-section">
+          <section className="porque-section">
             <div className="why-grid">
               <div className="why-text">
                 <h3 className="why-title">Porque existimos?</h3>
@@ -96,8 +91,7 @@ export function Sobre() {
             </div>
           </section>
 
-          {/* Nosso Objetivo Section */}
-          <section className="objective-section">
+          <section className="objetivo-section">
             <div className="objective-grid">
               <div className="objective-text">
                 <h3 className="objective-title">Nosso Objetivo</h3>
@@ -136,8 +130,6 @@ export function Sobre() {
           </section>
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 }

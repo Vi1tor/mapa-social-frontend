@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./Header.css";
 
@@ -6,6 +6,18 @@ export function Header({ isLoggedIn = false, onLogout, userName }) {
   const location = useLocation();
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const userMenuRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
+        setUserMenuOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   const pathname = location.pathname.toLowerCase(); 
   const isAcessoPage = pathname.includes("/acesso");
@@ -16,10 +28,8 @@ export function Header({ isLoggedIn = false, onLogout, userName }) {
 
   return (
     <header className="header">
-      {/* adicionamos uma classe condicional para ajustar o layout da página /Acesso */}
       <div className={`header-container ${isAcessoPage ? "header-acesso" : ""}`}>
         
-        {/* Logo */}
         <Link to="/" className="header-logo" onClick={closeMenu}>
           <img
             src="/src/assets/icons/map.png"
@@ -29,10 +39,8 @@ export function Header({ isLoggedIn = false, onLogout, userName }) {
           <h1 className="header-title">Mapa Social</h1>
         </Link>
 
-        {/* Navegação e menu (não aparece na página /Acesso) */}
         {!isAcessoPage && (
           <>
-            {/* Botão hambúrguer (mobile) */}
             <button
               className={`hamburger ${menuOpen ? "active" : ""}`}
               onClick={toggleMenu}
@@ -43,7 +51,6 @@ export function Header({ isLoggedIn = false, onLogout, userName }) {
               <span className="bar"></span>
             </button>
 
-            {/* Menu de navegação */}
             <nav className={`header-nav ${menuOpen ? "open" : ""}`}>
               {!isLoggedIn ? (
                 <>
@@ -75,28 +82,70 @@ export function Header({ isLoggedIn = false, onLogout, userName }) {
               ) : (
                 <>
                   {userName && (
-                    <div className="user-info" onClick={closeMenu}>
-                      <div className="user-avatar">
-                        <span className="user-initial">{userName[0]}</span>
+                    <div className="user-menu-container" ref={userMenuRef}>
+                      <div 
+                        className="user-info" 
+                        onClick={() => setUserMenuOpen(!userMenuOpen)}
+                      >
+                        <div className="user-avatar">
+                          <span className="user-initial">{userName[0].toUpperCase()}</span>
+                        </div>
+                        <span className="user-name">{userName}</span>
+                        <span className="dropdown-arrow">{userMenuOpen ? '▲' : '▼'}</span>
                       </div>
+                      {userMenuOpen && (
+                        <div className="user-dropdown">
+                          <button 
+                            className="dropdown-item"
+                            onClick={() => {
+                              navigate('/acesso');
+                              setUserMenuOpen(false);
+                              closeMenu();
+                            }}
+                          >
+                            🏠 Minha Área
+                          </button>
+                          <button 
+                            className="dropdown-item"
+                            onClick={() => {
+                              navigate('/favoritos');
+                              setUserMenuOpen(false);
+                              closeMenu();
+                            }}
+                          >
+                            ⭐ Favoritos
+                          </button>
+                          <button 
+                            className="dropdown-item"
+                            onClick={() => {
+                              navigate('/sugestoes');
+                              setUserMenuOpen(false);
+                              closeMenu();
+                            }}
+                          >
+                            💡 Sugestões
+                          </button>
+                          <div className="dropdown-divider"></div>
+                          <button
+                            className="dropdown-item logout"
+                            onClick={() => {
+                              onLogout?.();
+                              setUserMenuOpen(false);
+                              closeMenu();
+                            }}
+                          >
+                            🚪 Sair
+                          </button>
+                        </div>
+                      )}
                     </div>
                   )}
-                  <button
-                    onClick={() => {
-                      onLogout?.();
-                      closeMenu();
-                    }}
-                    className="button-access"
-                  >
-                    SAIR
-                  </button>
                 </>
               )}
             </nav>
           </>
         )}
 
-        {/* Botão "VOLTAR" (aparece apenas na página /Acesso) */}
         {isAcessoPage && (
           <button
             className="button-access"

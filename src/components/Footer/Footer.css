@@ -1,17 +1,17 @@
 .footer {
-  background-color: #f6f7f8; /* Mesmo bg do Tailwind (#D4E4E2) */
-  padding: 0;          /* Equivale ao py-6 (6 * 4px = 24px) */
+  background-color: #f6f7f8;
+  padding: 0;
   margin-top: auto;
 }
 
 .footer-container {
-  max-width: 1120px;        /* Aproximadamente max-w-7xl */
+  max-width: 1120px;
   margin: 0 auto;
-  padding: 0 24px;          /* px-6 */
+  padding: 0 24px;
   text-align: center;
 }
 
 .footer-text {
-  color: #193871;           /* Mesmo text color */
-  font-size: 0.875rem;      /* text-sm (14px) */
+  color: #193871;
+  font-size: 0.875rem;
 }

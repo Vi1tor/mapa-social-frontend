@@ -1,24 +1,48 @@
 import { useState } from "react";
-import { Header } from "../components/Header/Header";
-import { Footer } from "../components/Footer/Footer";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "./Login.css";
 
 export function Login({ onLogin }) {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (email && password) {
-      onLogin(email);
+    setError("");
+    
+    if (!email || !password) {
+      setError("E-mail e senha são obrigatórios.");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const response = await fetch("http://localhost:8080/usuarios/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, senhaHash: password }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        if (onLogin) onLogin(email);
+        navigate("/acesso");
+      } else {
+        const data = await response.json().catch(() => ({}));
+        setError(data.message || "Credenciais inválidas.");
+      }
+    } catch (err) {
+      setError("Erro de conexão com o servidor.");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="login-page">
-      <Header />
-
       <main className="login-main">
         <div className="login-wrapper">
           <h2>Faça Login</h2>
@@ -47,14 +71,16 @@ export function Login({ onLogin }) {
                 />
               </div>
 
+              {error && <p className="error" style={{color: 'red', marginTop: '10px'}}>{error}</p>}
+
               <div className="forgot-password">
                 <Link to="#" className="forgot-link">
                   Esqueceu a senha?
                 </Link>
               </div>
 
-              <button type="submit" className="submit-button">
-                Entrar
+              <button type="submit" className="submit-button" disabled={loading}>
+                {loading ? 'Entrando...' : 'Entrar'}
               </button>
             </form>
 
@@ -80,8 +106,6 @@ export function Login({ onLogin }) {
           </div>
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 }

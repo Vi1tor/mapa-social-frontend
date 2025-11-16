@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { Header } from "../components/Header/Header";
-import { Footer } from "../components/Footer/Footer";
 import "./Cadastro.css";
 
 export function Cadastro() {
@@ -11,9 +9,12 @@ export function Cadastro() {
     nome: "",
     email: "",
     senha: "",
+    confirmarSenha: "",
   });
 
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [fieldErrors, setFieldErrors] = useState({});
 
   const handleChange = (e) => {
     setFormData({
@@ -25,29 +26,46 @@ export function Cadastro() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    setFieldErrors({});
 
+    const errs = {};
+    if (!formData.nome || formData.nome.trim().length < 3) errs.nome = "Informe seu nome (mínimo 3 caracteres).";
+    const emailRe = /^\S+@\S+\.\S+$/;
+    if (!emailRe.test(formData.email)) errs.email = "E-mail inválido.";
+    if (!formData.senha || formData.senha.length < 6) errs.senha = "Senha deve ter ao menos 6 caracteres.";
+    if (!formData.confirmarSenha || formData.senha !== formData.confirmarSenha) errs.confirmarSenha = "As senhas não coincidem.";
+    if (Object.keys(errs).length) {
+      setFieldErrors(errs);
+      return;
+    }
+
+    setLoading(true);
     try {
-      const response = await fetch("http://localhost:5000/cadastro", {
+      const response = await fetch("http://localhost:8080/usuarios/cadastro", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ nome: formData.nome, email: formData.email, senhaHash: formData.senha, tipo: "COMUM" }),
       });
 
       if (response.ok) {
-        navigate("/login");
+        navigate("/acesso");
       } else {
-        const data = await response.json();
-        setError(data.message || "Erro ao criar conta.");
+        let msg = "Erro ao criar conta.";
+        try {
+          const data = await response.json();
+          if (data && data.message) msg = data.message;
+        } catch (_) {}
+        setError(msg);
       }
     } catch (err) {
       setError("Erro de conexão com o servidor.");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="cadastro-page">
-      <Header />
-
       <main className="cadastro-main">
         <div className="cadastro-wrapper">
           <h2>Crie sua Conta</h2>
@@ -64,6 +82,7 @@ export function Cadastro() {
                   onChange={handleChange}
                   required
                 />
+                {fieldErrors.nome && <div className="error">{fieldErrors.nome}</div>}
               </div>
 
               <div>
@@ -76,6 +95,7 @@ export function Cadastro() {
                   onChange={handleChange}
                   required
                 />
+                {fieldErrors.email && <div className="error">{fieldErrors.email}</div>}
               </div>
 
               <div>
@@ -88,12 +108,26 @@ export function Cadastro() {
                   onChange={handleChange}
                   required
                 />
+                {fieldErrors.senha && <div className="error">{fieldErrors.senha}</div>}
+              </div>
+
+              <div>
+                <label>Confirmar senha</label>
+                <input
+                  type="password"
+                  name="confirmarSenha"
+                  placeholder="******"
+                  value={formData.confirmarSenha}
+                  onChange={handleChange}
+                  required
+                />
+                {fieldErrors.confirmarSenha && <div className="error">{fieldErrors.confirmarSenha}</div>}
               </div>
 
               {error && <p className="error">{error}</p>}
 
-              <button type="submit" className="submit-button">
-                Cadastrar
+              <button type="submit" className="submit-button" disabled={loading}>
+                {loading ? 'Registrando...' : 'Cadastrar'}
               </button>
             </form>
 
@@ -106,8 +140,6 @@ export function Cadastro() {
           </div>
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 }
