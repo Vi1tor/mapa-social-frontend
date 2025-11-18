@@ -125,6 +125,16 @@ export function Header({ isLoggedIn = false, onLogout, userName }) {
                           >
                             💡 Sugestões
                           </button>
+                          <button 
+                            className="dropdown-item admin"
+                            onClick={() => {
+                              navigate('/admin');
+                              setUserMenuOpen(false);
+                              closeMenu();
+                            }}
+                          >
+                            🔐 Painel Admin
+                          </button>
                           <div className="dropdown-divider"></div>
                           <button
                             className="dropdown-item logout"

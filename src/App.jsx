@@ -12,6 +12,7 @@ import MapPage from "./pages/Map.jsx";
 import { Favoritos } from "./pages/Favoritos.jsx";
 import { Sugestoes } from "./pages/Sugestoes.jsx";
 import { Noticias } from "./pages/Noticias.jsx";
+import Admin from "./pages/Admin.jsx";
 import "./App.css";
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
             <Route path="/favoritos" element={<Favoritos />} />
             <Route path="/sugestoes" element={<Sugestoes />} />
             <Route path="/noticias" element={<Noticias />} />
+            <Route path="/admin" element={<Admin />} />
           </Routes>
         </div>
         <Footer />

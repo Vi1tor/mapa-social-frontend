@@ -256,6 +256,15 @@
   background-color: #fee2e2;
 }
 
+.dropdown-item.admin {
+  color: #7c3aed;
+  font-weight: 600;
+}
+
+.dropdown-item.admin:hover {
+  background-color: #f3e8ff;
+}
+
 .dropdown-divider {
   height: 1px;
   background-color: #e5e7eb;
