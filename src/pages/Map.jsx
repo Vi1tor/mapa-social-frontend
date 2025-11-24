@@ -131,44 +131,63 @@ export default function MapPage({ height = '80vh' }) {
                   paddingTop: '15px',
                   borderTop: '1px solid #e5e7eb',
                   display: 'flex',
+                  flexDirection: 'column',
                   gap: '8px'
                 }}>
                   <a 
-                    href={`/servicos`}
+                    href={`/solicitar-servico/${m.id}`}
                     style={{
-                      flex: 1,
                       textAlign: 'center',
                       padding: '10px 12px',
-                      background: '#f1f5f9',
-                      color: '#475569',
-                      textDecoration: 'none',
-                      borderRadius: '8px',
-                      fontSize: '14px',
-                      fontWeight: '500',
-                      transition: 'all 0.2s'
-                    }}
-                  >
-                    📋 Ver Detalhes
-                  </a>
-                  <a 
-                    target="_blank" 
-                    rel="noreferrer" 
-                    href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(m.enderecoResumo + ', Bragança Paulista, SP')}`}
-                    style={{
-                      flex: 1,
-                      textAlign: 'center',
-                      padding: '10px 12px',
-                      background: 'linear-gradient(135deg, #2563eb 0%, #1e40af 100%)',
+                      background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
                       color: 'white',
                       textDecoration: 'none',
                       borderRadius: '8px',
                       fontSize: '14px',
-                      fontWeight: '500',
+                      fontWeight: '600',
                       transition: 'all 0.2s'
                     }}
                   >
-                    🧭 Como Chegar
+                    📋 Solicitar Serviço
                   </a>
+                  <div style={{display: 'flex', gap: '8px'}}>
+                    <a 
+                      href={`/servicos`}
+                      style={{
+                        flex: 1,
+                        textAlign: 'center',
+                        padding: '10px 12px',
+                        background: '#f1f5f9',
+                        color: '#475569',
+                        textDecoration: 'none',
+                        borderRadius: '8px',
+                        fontSize: '13px',
+                        fontWeight: '500',
+                        transition: 'all 0.2s'
+                      }}
+                    >
+                      🗺️ Ver Detalhes
+                    </a>
+                    <a 
+                      target="_blank" 
+                      rel="noreferrer" 
+                      href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(m.enderecoResumo + ', Bragança Paulista, SP')}`}
+                      style={{
+                        flex: 1,
+                        textAlign: 'center',
+                        padding: '10px 12px',
+                        background: 'linear-gradient(135deg, #2563eb 0%, #1e40af 100%)',
+                        color: 'white',
+                        textDecoration: 'none',
+                        borderRadius: '8px',
+                        fontSize: '13px',
+                        fontWeight: '500',
+                        transition: 'all 0.2s'
+                      }}
+                    >
+                      🧭 Como Chegar
+                    </a>
+                  </div>
                 </div>
               </div>
             </Popup>

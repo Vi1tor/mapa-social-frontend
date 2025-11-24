@@ -1,7 +1,10 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './ServicoSocialCard.css';
 
 export function ServicoSocialCard({ servico, onNavigate }) {
+  const navigate = useNavigate();
+  
   const handleNavigate = () => {
     // Detecta se está no mobile para abrir o app nativo de mapas
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
@@ -75,6 +78,13 @@ export function ServicoSocialCard({ servico, onNavigate }) {
       </div>
 
       <div className="servico-card-actions">
+        <button 
+          className="btn-solicitar"
+          onClick={() => navigate(`/solicitar-servico/${servico.id}`)}
+          title="Solicitar este serviço"
+        >
+          📋 Solicitar Serviço
+        </button>
         <button 
           className="btn-ver-mapa"
           onClick={handleVerNoMapa}

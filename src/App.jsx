@@ -15,6 +15,8 @@ import { Noticias } from "./pages/Noticias.jsx";
 import Admin from "./pages/Admin.jsx";
 import  {RecuperarSenha}  from "./pages/RecuperarSenha.jsx";
 import { ServicosLista } from "./pages/ServicosLista.jsx";
+import { SolicitarServico } from "./pages/SolicitarServico.jsx";
+import { MinhasSolicitacoes } from "./pages/MinhasSolicitacoes.jsx";
 import "./App.css";
 
 function App() {
@@ -61,6 +63,8 @@ function App() {
             <Route path="/sugestoes" element={<Sugestoes />} />
             <Route path="/noticias" element={<Noticias isLoggedIn={isLoggedIn}/>} />
             <Route path="/servicos" element={<ServicosLista />} />
+            <Route path="/solicitar-servico/:id" element={<SolicitarServico />} />
+            <Route path="/minhas-solicitacoes" element={<MinhasSolicitacoes />} />
             <Route path="/admin" element={<Admin isLoggedIn={isLoggedIn}/>} />
             <Route path="/recuperar-senha" element={<RecuperarSenha />} />
           </Routes>

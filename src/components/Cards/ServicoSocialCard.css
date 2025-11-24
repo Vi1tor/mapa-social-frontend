@@ -76,26 +76,40 @@
 
 .servico-card-actions {
   display: flex;
-  gap: 10px;
+  gap: 8px;
   margin-top: 15px;
   padding-top: 15px;
   border-top: 1px solid #e5e7eb;
+  flex-wrap: wrap;
 }
 
+.btn-solicitar,
 .btn-ver-mapa,
 .btn-navegar {
   flex: 1;
+  min-width: 140px;
   padding: 10px 16px;
   border: none;
   border-radius: 8px;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 13px;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
+}
+
+.btn-solicitar {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+}
+
+.btn-solicitar:hover {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
 }
 
 .btn-ver-mapa {
@@ -132,8 +146,10 @@
     flex-direction: column;
   }
 
+  .btn-solicitar,
   .btn-ver-mapa,
   .btn-navegar {
     width: 100%;
+    min-width: auto;
   }
 }
