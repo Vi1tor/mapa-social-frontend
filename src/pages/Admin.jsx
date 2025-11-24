@@ -9,7 +9,8 @@ function Admin({ isLoggedIn, userName}) {
   const [usuarios, setUsuarios] = useState([]);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const API_URL = "http://localhost:8080/admin";
+  const API_URL_BASE = import.meta.env.VITE_API_BASE || "http://localhost:8080";
+  const API_URL = `${API_URL_BASE}/admin`;
   const userRole = localStorage.getItem('userRole');
   const userId = localStorage.getItem('userId');
   const isSuperAdmin = userRole === 'SUPER_ADMIN';

@@ -24,7 +24,8 @@ export function MinhasSolicitacoes() {
   const carregarSolicitacoes = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`http://localhost:8080/solicitacoes/usuario/${userId}`);
+      const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8080';
+      const response = await fetch(`${API_BASE}/solicitacoes/usuario/${userId}`);
       const data = await response.json();
       setSolicitacoes(data);
     } catch (error) {
@@ -40,7 +41,8 @@ export function MinhasSolicitacoes() {
     }
 
     try {
-      const response = await fetch(`http://localhost:8080/solicitacoes/${solicitacaoId}`, {
+      const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8080';
+      const response = await fetch(`${API_BASE}/solicitacoes/${solicitacaoId}`, {
         method: 'DELETE',
       });
 

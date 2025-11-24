@@ -20,7 +20,8 @@ export function Login({ onLogin }) {
 
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:8080/usuarios/login", {
+      const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:8080";
+      const response = await fetch(`${API_BASE}/usuarios/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, senhaHash: password }),

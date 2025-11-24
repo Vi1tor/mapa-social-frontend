@@ -17,7 +17,8 @@ export function ServicosLista() {
   const fetchServicos = async () => {
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:8080/servicos/mapa');
+      const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8080';
+      const response = await fetch(`${API_BASE}/servicos/mapa`);
       if (response.ok) {
         const data = await response.json();
         setServicos(data);
@@ -31,7 +32,8 @@ export function ServicosLista() {
 
   const fetchCategorias = async () => {
     try {
-      const response = await fetch('http://localhost:8080/categorias');
+      const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8080';
+      const response = await fetch(`${API_BASE}/categorias`);
       if (response.ok) {
         const data = await response.json();
         setCategorias(data);

@@ -31,7 +31,8 @@ export function SolicitarServico() {
       return;
     }
 
-    fetch(`http://localhost:8080/servicos/${id}`)
+    const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8080';
+    fetch(`${API_BASE}/servicos/${id}`)
       .then(res => res.json())
       .then(data => {
         setServico(data);
@@ -52,7 +53,8 @@ export function SolicitarServico() {
     setEnviando(true);
 
     try {
-      const response = await fetch('http://localhost:8080/solicitacoes', {
+      const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8080';
+      const response = await fetch(`${API_BASE}/solicitacoes`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

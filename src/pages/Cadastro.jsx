@@ -42,7 +42,8 @@ export function Cadastro() {
 
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:8080/usuarios/cadastro", {
+      const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:8080";
+      const response = await fetch(`${API_BASE}/usuarios/cadastro`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ nome: formData.nome, email: formData.email, senhaHash: formData.senha, tipo: "COMUM" }),

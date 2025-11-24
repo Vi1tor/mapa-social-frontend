@@ -45,7 +45,8 @@ export default function MapPage({ height = '80vh' }) {
     (async () => {
       setLoading(true);
       try {
-        const resp = await fetch('http://localhost:8080/servicos/mapa');
+        const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8080';
+        const resp = await fetch(`${API_BASE}/servicos/mapa`);
         if (!resp.ok) throw new Error('fetch failed');
         const data = await resp.json();
 
