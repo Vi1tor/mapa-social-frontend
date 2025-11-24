@@ -35,7 +35,11 @@ function App() {
     setUserEmail("");
     setUserName("Usuário");
     setIsLoggedIn(false);
-    localStorage.setItem("isLoggedIn", "false");
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("userEmail");
+    localStorage.removeItem("userName");
+    localStorage.removeItem("userRole");
+    localStorage.removeItem("userId");
   };
  
   console.log('App component rendering');

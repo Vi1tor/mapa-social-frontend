@@ -27,13 +27,15 @@ export function Login({ onLogin }) {
       });
 
       if (response.ok) {
-
-        localStorage.setItem("isLoggedIn", "true");
-        localStorage.setItem("userEmail", email);
-        localStorage.setItem("userName", email.charAt(0).toUpperCase() + email.slice(1))
-
         const data = await response.json();
-        if (onLogin) onLogin(email);
+        
+        localStorage.setItem("isLoggedIn", "true");
+        localStorage.setItem("userEmail", data.email);
+        localStorage.setItem("userName", data.nome);
+        localStorage.setItem("userRole", data.role);
+        localStorage.setItem("userId", data.id);
+
+        if (onLogin) onLogin(data.email);
         navigate("/acesso");
       } else {
         const data = await response.json().catch(() => ({}));

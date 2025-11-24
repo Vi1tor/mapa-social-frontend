@@ -154,16 +154,18 @@ export function Header({ onLogin, onLogout, userName, isLoggedIn }) {
                           >
                             💡 Sugestões
                           </button>
-                          <button 
-                            className="dropdown-item admin"
-                            onClick={() => {
-                              navigate('/admin');
-                              setUserMenuOpen(false);
-                              closeMenu();
-                            }}
-                          >
-                            🔐 Painel Admin
-                          </button>
+                          {(localStorage.getItem('userRole') === 'ADMIN' || localStorage.getItem('userRole') === 'SUPER_ADMIN') && (
+                            <button 
+                              className="dropdown-item admin"
+                              onClick={() => {
+                                navigate('/admin');
+                                setUserMenuOpen(false);
+                                closeMenu();
+                              }}
+                            >
+                              🔐 Painel Admin
+                            </button>
+                          )}
                           <div className="dropdown-divider"></div>
                           <button
                             className="dropdown-item logout"

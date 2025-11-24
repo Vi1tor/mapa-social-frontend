@@ -10,11 +10,22 @@ function Admin({ isLoggedIn, userName}) {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const API_URL = "http://localhost:8080/admin";
+  const userRole = localStorage.getItem('userRole');
+  const userId = localStorage.getItem('userId');
+  const isSuperAdmin = userRole === 'SUPER_ADMIN';
+  const isAdmin = userRole === 'ADMIN' || isSuperAdmin;
 
 
   useEffect(() => {
     if (!isLoggedIn) {
       navigate("/login");
+      return;
+    }
+
+    // Verificar se tem permissão de admin
+    if (!isAdmin) {
+      alert("❌ Acesso negado! Apenas administradores podem acessar esta página.");
+      navigate("/acesso");
       return;
     }
 
@@ -113,7 +124,7 @@ function Admin({ isLoggedIn, userName}) {
     if (!confirm("Tem certeza que deseja excluir este usuário?")) return;
 
     try {
-      const response = await fetch(`${API_URL}/usuarios/${id}`, {
+      const response = await fetch(`${API_URL}/usuarios/${id}?adminId=${userId}`, {
         method: "DELETE",
       });
       if (response.ok) {
@@ -126,10 +137,15 @@ function Admin({ isLoggedIn, userName}) {
   };
 
   const promoverParaAdmin = async (id) => {
+    if (!isSuperAdmin) {
+      alert("❌ Apenas SUPER_ADMIN pode promover usuários para ADMIN");
+      return;
+    }
+    
     if (!confirm("Promover este usuário para ADMINISTRADOR?")) return;
 
     try {
-      const response = await fetch(`${API_URL}/usuarios/${id}/promover`, {
+      const response = await fetch(`${API_URL}/usuarios/${id}/promover?adminId=${userId}`, {
         method: "POST",
       });
       if (response.ok) {
@@ -146,10 +162,15 @@ function Admin({ isLoggedIn, userName}) {
   };
 
   const rebaixarParaUser = async (id) => {
+    if (!isSuperAdmin) {
+      alert("❌ Apenas SUPER_ADMIN pode rebaixar ADMIN");
+      return;
+    }
+    
     if (!confirm("Rebaixar este administrador para USUÁRIO COMUM?")) return;
 
     try {
-      const response = await fetch(`${API_URL}/usuarios/${id}/rebaixar`, {
+      const response = await fetch(`${API_URL}/usuarios/${id}/rebaixar?adminId=${userId}`, {
         method: "POST",
       });
       if (response.ok) {
@@ -169,7 +190,7 @@ function Admin({ isLoggedIn, userName}) {
     if (!confirm("Bloquear acesso deste usuário?")) return;
 
     try {
-      const response = await fetch(`${API_URL}/usuarios/${id}/bloquear`, {
+      const response = await fetch(`${API_URL}/usuarios/${id}/bloquear?adminId=${userId}`, {
         method: "POST",
       });
       if (response.ok) {
@@ -202,7 +223,9 @@ function Admin({ isLoggedIn, userName}) {
   return (
     <div className="admin-container">
       <div className="admin-sidebar">
-        <h2 className="admin-title">🔐 Painel Admin</h2>
+        <h2 className="admin-title">
+          {isSuperAdmin ? '🔱 Painel SUPER ADMIN' : '🔐 Painel Admin'}
+        </h2>
         <nav className="admin-nav">
           <button
             className={activeTab === "dashboard" ? "nav-btn active" : "nav-btn"}
@@ -242,6 +265,22 @@ function Admin({ isLoggedIn, userName}) {
 
         {!loading && activeTab === "dashboard" && (
           <div className="dashboard-section">
+            <div className="role-info-banner" style={{
+              padding: '15px 20px',
+              marginBottom: '20px',
+              borderRadius: '8px',
+              backgroundColor: isSuperAdmin ? '#fef3c7' : '#dbeafe',
+              borderLeft: `4px solid ${isSuperAdmin ? '#f59e0b' : '#3b82f6'}`
+            }}>
+              <h3 style={{margin: 0, fontSize: '18px', fontWeight: 'bold'}}>
+                {isSuperAdmin ? '🔱 Nível de Acesso: SUPER ADMINISTRADOR' : '👑 Nível de Acesso: ADMINISTRADOR'}
+              </h3>
+              <p style={{margin: '5px 0 0 0', fontSize: '14px', color: '#666'}}>
+                {isSuperAdmin 
+                  ? 'Você tem controle total sobre ADMINISTRADORES e USUÁRIOS. Pode promover, rebaixar, bloquear e excluir.'
+                  : 'Você tem controle sobre USUÁRIOS. Pode bloquear e excluir usuários comuns.'}
+              </p>
+            </div>
             <h2>Dashboard - Estatísticas Gerais</h2>
             {!stats && (
               <p className="empty-message">Erro ao carregar dados. Verifique se o backend está rodando.</p>
@@ -372,63 +411,123 @@ function Admin({ isLoggedIn, userName}) {
                         </td>
                         <td>{new Date(usuario.dataCadastro).toLocaleDateString("pt-BR")}</td>
                         <td className="action-buttons">
-                          {usuario.role === "USER" && (
-                            <button
-                              className="btn-promover"
-                              onClick={() => promoverParaAdmin(usuario.id)}
-                              title="Promover para Admin"
-                            >
-                              ⬆️ Promover
-                            </button>
-                          )}
-                          {usuario.role === "ADMIN" && (
+                          {/* SUPER_ADMIN tem controle total sobre ADMIN e USER */}
+                          {isSuperAdmin && (
                             <>
-                              <button
-                                className="btn-rebaixar"
-                                onClick={() => rebaixarParaUser(usuario.id)}
-                                title="Rebaixar para User"
-                              >
-                                ⬇️ Rebaixar
-                              </button>
-                              {!usuario.bloqueado ? (
-                                <button
-                                  className="btn-bloquear"
-                                  onClick={() => bloquearUsuario(usuario.id)}
-                                  title="Bloquear Usuário"
-                                >
-                                  🚫 Bloquear
-                                </button>
-                              ) : (
-                                <button
-                                  className="btn-desbloquear"
-                                  onClick={() => desbloquearUsuario(usuario.id)}
-                                  title="Desbloquear Usuário"
-                                >
-                                  ✅ Desbloquear
-                                </button>
+                              {usuario.role === "USER" && (
+                                <>
+                                  <button
+                                    className="btn-promover"
+                                    onClick={() => promoverParaAdmin(usuario.id)}
+                                    title="Promover para Admin"
+                                  >
+                                    ⬆️ Promover ADMIN
+                                  </button>
+                                  {!usuario.bloqueado ? (
+                                    <button
+                                      className="btn-bloquear"
+                                      onClick={() => bloquearUsuario(usuario.id)}
+                                      title="Bloquear Usuário"
+                                    >
+                                      🚫 Bloquear
+                                    </button>
+                                  ) : (
+                                    <button
+                                      className="btn-desbloquear"
+                                      onClick={() => desbloquearUsuario(usuario.id)}
+                                      title="Desbloquear Usuário"
+                                    >
+                                      ✅ Desbloquear
+                                    </button>
+                                  )}
+                                  <button
+                                    className="btn-delete"
+                                    onClick={() => excluirUsuario(usuario.id)}
+                                    title="Excluir Usuário"
+                                  >
+                                    🗑️ Excluir
+                                  </button>
+                                </>
+                              )}
+                              {usuario.role === "ADMIN" && (
+                                <>
+                                  <button
+                                    className="btn-rebaixar"
+                                    onClick={() => rebaixarParaUser(usuario.id)}
+                                    title="Rebaixar para User"
+                                  >
+                                    ⬇️ Rebaixar USER
+                                  </button>
+                                  {!usuario.bloqueado ? (
+                                    <button
+                                      className="btn-bloquear"
+                                      onClick={() => bloquearUsuario(usuario.id)}
+                                      title="Bloquear Admin"
+                                    >
+                                      🚫 Bloquear
+                                    </button>
+                                  ) : (
+                                    <button
+                                      className="btn-desbloquear"
+                                      onClick={() => desbloquearUsuario(usuario.id)}
+                                      title="Desbloquear Admin"
+                                    >
+                                      ✅ Desbloquear
+                                    </button>
+                                  )}
+                                  <button
+                                    className="btn-delete"
+                                    onClick={() => excluirUsuario(usuario.id)}
+                                    title="Excluir Admin"
+                                  >
+                                    🗑️ Excluir
+                                  </button>
+                                </>
+                              )}
+                              {usuario.role === "SUPER_ADMIN" && (
+                                <span className="super-admin-badge">🛡️ PROTEGIDO</span>
                               )}
                             </>
                           )}
-                          {usuario.role === "USER" && usuario.bloqueado && (
-                            <button
-                              className="btn-desbloquear"
-                              onClick={() => desbloquearUsuario(usuario.id)}
-                              title="Desbloquear Usuário"
-                            >
-                              ✅ Desbloquear
-                            </button>
-                          )}
-                          {usuario.role !== "SUPER_ADMIN" && (
-                            <button
-                              className="btn-delete"
-                              onClick={() => excluirUsuario(usuario.id)}
-                              title="Excluir Usuário"
-                            >
-                              🗑️ Excluir
-                            </button>
-                          )}
-                          {usuario.role === "SUPER_ADMIN" && (
-                            <span className="super-admin-badge">🛡️ PROTEGIDO</span>
+
+                          {/* ADMIN tem controle apenas sobre USER */}
+                          {!isSuperAdmin && isAdmin && (
+                            <>
+                              {usuario.role === "USER" && (
+                                <>
+                                  {!usuario.bloqueado ? (
+                                    <button
+                                      className="btn-bloquear"
+                                      onClick={() => bloquearUsuario(usuario.id)}
+                                      title="Bloquear Usuário"
+                                    >
+                                      🚫 Bloquear
+                                    </button>
+                                  ) : (
+                                    <button
+                                      className="btn-desbloquear"
+                                      onClick={() => desbloquearUsuario(usuario.id)}
+                                      title="Desbloquear Usuário"
+                                    >
+                                      ✅ Desbloquear
+                                    </button>
+                                  )}
+                                  <button
+                                    className="btn-delete"
+                                    onClick={() => excluirUsuario(usuario.id)}
+                                    title="Excluir Usuário"
+                                  >
+                                    🗑️ Excluir
+                                  </button>
+                                </>
+                              )}
+                              {usuario.role === "ADMIN" && (
+                                <span className="super-admin-badge">👑 ADMIN</span>
+                              )}
+                              {usuario.role === "SUPER_ADMIN" && (
+                                <span className="super-admin-badge">🔱 SUPER ADMIN</span>
+                              )}
+                            </>
                           )}
                         </td>
                       </tr>
