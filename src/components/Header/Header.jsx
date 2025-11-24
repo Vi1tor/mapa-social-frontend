@@ -32,7 +32,7 @@ export function Header({ onLogin, onLogout, userName, isLoggedIn }) {
         
         <Link to="/" className="header-logo" onClick={closeMenu}>
           <img
-            src="/src/assets/icons/map.png"
+            src="/assets/icons/map.png"
             alt="Ícone do mapa"
             className="header-icon"
           />

@@ -23,7 +23,7 @@ export function Noticias({ isLoggedIn, userName}) {
           categoria: "Saúde",
           resumo: "A nova Unidade Básica de Saúde começou a atender a população da região norte da cidade.",
           data: "12/11/2025",
-          imagem: "/src/assets/images/saude-publica.png"
+          imagem: "/assets/images/saude-publica.png"
         },
         {
           id: 2,
@@ -31,7 +31,7 @@ export function Noticias({ isLoggedIn, userName}) {
           categoria: "Educação",
           resumo: "SENAI oferece 200 vagas em cursos de capacitação profissional para jovens e adultos.",
           data: "10/11/2025",
-          imagem: "/src/assets/images/cursos-profissionalizantes.png"
+          imagem: "/assets/images/cursos-profissionalizantes.png"
         },
         {
           id: 3,
@@ -39,7 +39,7 @@ export function Noticias({ isLoggedIn, userName}) {
           categoria: "Assistência Social",
           resumo: "Prefeitura aumenta em 30% a distribuição de cestas básicas para famílias em situação de vulnerabilidade.",
           data: "08/11/2025",
-          imagem: "/src/assets/images/alimentacao.png"
+          imagem: "/assets/images/alimentacao.png"
         },
         {
           id: 4,
@@ -47,7 +47,7 @@ export function Noticias({ isLoggedIn, userName}) {
           categoria: "Lazer",
           resumo: "Espaço de lazer com playground, quadras e área verde foi entregue à comunidade.",
           data: "05/11/2025",
-          imagem: "/src/assets/images/lazer.png"
+          imagem: "/assets/images/lazer.png"
         },
       ]);
       setLoading(false);

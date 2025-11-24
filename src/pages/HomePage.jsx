@@ -48,15 +48,15 @@ function HomePage() {
   };
 
   const services = [
-    { icon: "/src/assets/images/saude-publica.png", title: "Saúde", subtitle: "Pública" },
-    { icon: "/src/assets/images/educacao-publica.png", title: "Educação", subtitle: "Pública" },
-    { icon: "/src/assets/images/lazer.png", title: "Lazer" },
-    { icon: "/src/assets/images/alimentacao.png", title: "Alimentação" },
-    { icon: "/src/assets/images/cursos-profissionalizantes.png", title: "Cursos", subtitle: "Profissionalizantes" },
-    { icon: "/src/assets/images/emissao-de-documentos.png", title: "Emissão de", subtitle: "Documentos Gratuitos" },
-    { icon: "/src/assets/images/transporte-publico.png", title: "Transporte", subtitle: "Público" },
-    { icon: "/src/assets/images/moradia.png", title: "Moradia" },
-    { icon: "/src/assets/images/assistencia-social.png", title: "Assistência", subtitle: "Social" },
+    { icon: "/assets/images/saude-publica.png", title: "Saúde", subtitle: "Pública" },
+    { icon: "/assets/images/educacao-publica.png", title: "Educação", subtitle: "Pública" },
+    { icon: "/assets/images/lazer.png", title: "Lazer" },
+    { icon: "/assets/images/alimentacao.png", title: "Alimentação" },
+    { icon: "/assets/images/cursos-profissionalizantes.png", title: "Cursos", subtitle: "Profissionalizantes" },
+    { icon: "/assets/images/emissao-de-documentos.png", title: "Emissão de", subtitle: "Documentos Gratuitos" },
+    { icon: "/assets/images/transporte-publico.png", title: "Transporte", subtitle: "Público" },
+    { icon: "/assets/images/moradia.png", title: "Moradia" },
+    { icon: "/assets/images/assistencia-social.png", title: "Assistência", subtitle: "Social" },
   ];
 
   return (
@@ -89,7 +89,7 @@ function HomePage() {
                   />
                   <button type="submit" className="search-button" onClick={handleSearch}>
                     <img
-                      src="/src/assets/icons/lupa.png"
+                      src="/assets/icons/lupa.png"
                       alt="Buscar"
                       className="search-icon"
                     />
