@@ -84,7 +84,7 @@ export function Sobre() {
               <div className="why-image-container">
                 <div className="image-card">
                   <img
-                    src="/assets/images/Mapa3d.png"
+                    src="/assets/images/Mapa3D.png"
                     alt="Ilustração de mapa 3D"
                     loading="lazy"
                   />
