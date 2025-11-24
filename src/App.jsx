@@ -14,6 +14,7 @@ import { Sugestoes } from "./components/HeroSection/Sugestoes.jsx";
 import { Noticias } from "./pages/Noticias.jsx";
 import Admin from "./pages/Admin.jsx";
 import  {RecuperarSenha}  from "./pages/RecuperarSenha.jsx";
+import { ServicosLista } from "./pages/ServicosLista.jsx";
 import "./App.css";
 
 function App() {
@@ -59,6 +60,7 @@ function App() {
             <Route path="/favoritos" element={<Favoritos isLoggedIn={isLoggedIn}/>} />
             <Route path="/sugestoes" element={<Sugestoes />} />
             <Route path="/noticias" element={<Noticias isLoggedIn={isLoggedIn}/>} />
+            <Route path="/servicos" element={<ServicosLista />} />
             <Route path="/admin" element={<Admin isLoggedIn={isLoggedIn}/>} />
             <Route path="/recuperar-senha" element={<RecuperarSenha />} />
           </Routes>

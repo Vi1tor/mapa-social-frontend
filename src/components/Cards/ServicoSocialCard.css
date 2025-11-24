@@ -1,0 +1,139 @@
+.servico-social-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  transition: all 0.3s ease;
+  border: 1px solid #e5e7eb;
+}
+
+.servico-social-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.servico-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 15px;
+  gap: 10px;
+}
+
+.servico-card-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1e293b;
+  flex: 1;
+}
+
+.servico-card-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.servico-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.servico-card-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 14px;
+  color: #475569;
+}
+
+.info-icon {
+  font-size: 16px;
+  margin-top: 2px;
+}
+
+.info-text {
+  flex: 1;
+  line-height: 1.5;
+}
+
+.servico-phone-link {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.servico-phone-link:hover {
+  text-decoration: underline;
+}
+
+.servico-card-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.btn-ver-mapa,
+.btn-navegar {
+  flex: 1;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.btn-ver-mapa {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.btn-ver-mapa:hover {
+  background: #e2e8f0;
+  transform: scale(1.02);
+}
+
+.btn-navegar {
+  background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+  color: white;
+}
+
+.btn-navegar:hover {
+  background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+}
+
+@media (max-width: 768px) {
+  .servico-social-card {
+    padding: 15px;
+  }
+
+  .servico-card-title {
+    font-size: 16px;
+  }
+
+  .servico-card-actions {
+    flex-direction: column;
+  }
+
+  .btn-ver-mapa,
+  .btn-navegar {
+    width: 100%;
+  }
+}

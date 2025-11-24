@@ -31,6 +31,7 @@ export function Acesso({ isLoggedIn, userName}) {
               <h3 className="services-title">O que deseja fazer?</h3>
 
               <div className="acesso-grid">
+                <AcessoCard title="Ver Serviços Sociais" onClick={() => handleCardClick('/servicos')} />
                 <AcessoCard title="Acessar o Mapa Social" onClick={() => handleCardClick('/map')} />
                 <AcessoCard title="Serviços Favoritos" onClick={() => handleCardClick('/favoritos')} />
                 <AcessoCard title="Acompanhar Sugestões" onClick={() => handleCardClick('/sugestoes')} />

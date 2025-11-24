@@ -1,0 +1,139 @@
+.servicos-lista-page {
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #f8fafc, #e2e8f0);
+  padding: 40px 20px;
+}
+
+.servicos-lista-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.servicos-lista-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.servicos-lista-header h1 {
+  font-size: 32px;
+  color: #1e293b;
+  margin-bottom: 10px;
+}
+
+.servicos-lista-header p {
+  font-size: 16px;
+  color: #64748b;
+}
+
+.servicos-filtros {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.filtro-busca {
+  flex: 2;
+  min-width: 300px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: white;
+  border-radius: 12px;
+  padding: 0 15px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.filtro-icon {
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+.filtro-input {
+  flex: 1;
+  border: none;
+  padding: 12px 0;
+  font-size: 16px;
+  outline: none;
+}
+
+.filtro-categoria {
+  flex: 1;
+  min-width: 250px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: white;
+  border-radius: 12px;
+  padding: 12px 15px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.filtro-categoria label {
+  font-weight: 500;
+  color: #475569;
+  white-space: nowrap;
+}
+
+.filtro-select {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-size: 16px;
+  outline: none;
+  cursor: pointer;
+  color: #1e293b;
+}
+
+.servicos-loading {
+  text-align: center;
+  padding: 60px 20px;
+  color: #64748b;
+  font-size: 18px;
+}
+
+.servicos-count {
+  margin-bottom: 20px;
+  padding-left: 5px;
+}
+
+.servicos-count p {
+  color: #64748b;
+  font-size: 14px;
+}
+
+.servicos-count strong {
+  color: #2563eb;
+  font-size: 16px;
+}
+
+.servicos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 24px;
+}
+
+@media (max-width: 768px) {
+  .servicos-lista-page {
+    padding: 20px 10px;
+  }
+
+  .servicos-lista-header h1 {
+    font-size: 24px;
+  }
+
+  .servicos-filtros {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .filtro-busca,
+  .filtro-categoria {
+    min-width: 100%;
+  }
+
+  .servicos-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
