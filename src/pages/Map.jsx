@@ -47,7 +47,10 @@ export default function MapPage({ height = '80vh' }) {
       try {
         const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8080';
         const resp = await fetch(`${API_BASE}/servicos/mapa`);
-        if (!resp.ok) throw new Error('fetch failed');
+        if (!resp.ok) {
+          console.error(`API Error: ${resp.status} ${resp.statusText} - URL: ${API_BASE}/servicos/mapa`);
+          throw new Error(`HTTP ${resp.status}: ${resp.statusText}`);
+        }
         const data = await resp.json();
 
         const filled = await Promise.all(data.map(async (s) => {
@@ -65,7 +68,8 @@ export default function MapPage({ height = '80vh' }) {
 
         setMarkers(filled.filter(m => m.latitude && m.longitude));
       } catch (e) {
-        console.error('Erro ao carregar mapa /servicos/mapa:', e);
+        console.error('Erro ao carregar mapa /servicos/mapa:', e.message || e);
+        console.error('Verifique se VITE_API_BASE está configurado corretamente:', import.meta.env.VITE_API_BASE);
       } finally {
         setLoading(false);
       }

@@ -19,12 +19,16 @@ export function ServicosLista() {
     try {
       const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8080';
       const response = await fetch(`${API_BASE}/servicos/mapa`);
+      if (!response.ok) {
+        console.error(`API Error: ${response.status} ${response.statusText} - ${API_BASE}/servicos/mapa`);
+      }
       if (response.ok) {
         const data = await response.json();
         setServicos(data);
       }
     } catch (error) {
       console.error('Erro ao buscar serviços:', error);
+      console.error('Verifique VITE_API_BASE:', import.meta.env.VITE_API_BASE);
     } finally {
       setLoading(false);
     }
