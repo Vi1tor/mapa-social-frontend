@@ -118,7 +118,7 @@ export function ServicosLista() {
             </div>
 
             <div className="servicos-grid">
-              {servicosFiltrados.map(servico => (
+              {servicosPaginados.map(servico => (
                 <ServicoSocialCard
                   key={servico.id}
                   servico={servico}
@@ -126,6 +126,59 @@ export function ServicosLista() {
                 />
               ))}
             </div>
+
+            {totalPages > 1 && (
+              <div className="pagination-controls" style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                gap: '12px',
+                marginTop: '32px',
+                padding: '20px'
+              }}>
+                <button
+                  onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                  disabled={currentPage === 1}
+                  style={{
+                    padding: '10px 20px',
+                    borderRadius: '8px',
+                    border: 'none',
+                    background: currentPage === 1 ? '#e5e7eb' : '#2563eb',
+                    color: currentPage === 1 ? '#9ca3af' : 'white',
+                    cursor: currentPage === 1 ? 'not-allowed' : 'pointer',
+                    fontWeight: '600'
+                  }}
+                >
+                  ← Anterior
+                </button>
+                
+                <span style={{
+                  padding: '8px 16px',
+                  background: '#f3f4f6',
+                  borderRadius: '6px',
+                  fontWeight: '600',
+                  color: '#374151'
+                }}>
+                  Página {currentPage} de {totalPages}
+                </span>
+                
+                <button
+                  onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                  disabled={currentPage === totalPages}
+                  style={{
+                    padding: '10px 20px',
+                    borderRadius: '8px',
+                    border: 'none',
+                    background: currentPage === totalPages ? '#e5e7eb' : '#2563eb',
+                    color: currentPage === totalPages ? '#9ca3af' : 'white',
+                    cursor: currentPage === totalPages ? 'not-allowed' : 'pointer',
+                    fontWeight: '600'
+                  }}
+                >
+                  Próxima →
+                </button>
+              </div>
+            )}
           </>
         )}
       </div>
