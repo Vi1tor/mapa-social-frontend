@@ -220,6 +220,27 @@ function Admin({ isLoggedIn, userName}) {
     }
   };
 
+  const criarNovoUsuario = async (nome, email, senha) => {
+    try {
+      const response = await fetch(`${API_URL}/usuarios/criar?adminId=${userId}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ nome, email, senha, tipo: "COMUM" }),
+      });
+      
+      if (response.ok) {
+        alert("✅ Usuário criado com sucesso!");
+        fetchUsuarios();
+      } else {
+        const data = await response.json();
+        alert("❌ Erro: " + (data.message || "Não foi possível criar o usuário"));
+      }
+    } catch (error) {
+      console.error("Erro ao criar usuário:", error);
+      alert("❌ Erro ao criar usuário");
+    }
+  };
+
   return (
     <div className="admin-container">
       <div className="admin-sidebar">
@@ -370,7 +391,27 @@ function Admin({ isLoggedIn, userName}) {
 
         {!loading && activeTab === "usuarios" && (
           <div className="usuarios-section">
-            <h2>Gerenciar Usuários</h2>
+            <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px'}}>
+              <h2>Gerenciar Usuários</h2>
+              <button 
+                className="btn-promover"
+                onClick={() => {
+                  const nome = prompt("Nome do novo usuário:");
+                  if (!nome) return;
+                  const email = prompt("Email:");
+                  if (!email) return;
+                  const senha = prompt("Senha (mínimo 6 caracteres):");
+                  if (!senha || senha.length < 6) {
+                    alert("Senha deve ter ao menos 6 caracteres");
+                    return;
+                  }
+                  criarNovoUsuario(nome, email, senha);
+                }}
+                style={{padding: '10px 20px'}}
+              >
+                ➕ Criar Novo Usuário
+              </button>
+            </div>
             {usuarios.length === 0 ? (
               <p className="empty-message">Nenhum usuário cadastrado.</p>
             ) : (

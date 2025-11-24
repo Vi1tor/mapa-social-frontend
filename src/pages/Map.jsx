@@ -83,11 +83,37 @@ export default function MapPage({ height = '80vh' }) {
         {markers.map(m => (
           <Marker key={m.id} position={[m.latitude, m.longitude]}>
             <Popup>
-              <strong>{m.nome}</strong><br />
-              {m.enderecoResumo}<br />
-              <a target="_blank" rel="noreferrer" href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(m.enderecoResumo + ', Bragança Paulista, SP')}`}>
-                Ir até aqui
-              </a>
+              <div style={{minWidth: '200px'}}>
+                <strong style={{fontSize: '16px', color: '#2563eb'}}>{m.nome}</strong><br />
+                
+                {m.categoriaNome && (
+                  <span style={{display: 'inline-block', padding: '2px 8px', backgroundColor: '#dbeafe', borderRadius: '4px', fontSize: '12px', marginTop: '5px', marginBottom: '5px'}}>
+                    📁 {m.categoriaNome}
+                  </span>
+                )}<br />
+                
+                {m.tipo && (
+                  <><strong>Tipo:</strong> {m.tipo}<br /></>
+                )}
+                
+                {m.telefone && (
+                  <><strong>📞 Telefone:</strong> <a href={`tel:${m.telefone}`}>{m.telefone}</a><br /></>
+                )}
+                
+                <strong>📍 Endereço:</strong><br />
+                {m.enderecoResumo}<br />
+                
+                <div style={{marginTop: '10px'}}>
+                  <a 
+                    target="_blank" 
+                    rel="noreferrer" 
+                    href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(m.enderecoResumo + ', Bragança Paulista, SP')}`}
+                    style={{display: 'inline-block', padding: '6px 12px', backgroundColor: '#2563eb', color: 'white', textDecoration: 'none', borderRadius: '4px', fontSize: '14px'}}
+                  >
+                    🗺️ Ir até aqui
+                  </a>
+                </div>
+              </div>
             </Popup>
           </Marker>
         ))}
