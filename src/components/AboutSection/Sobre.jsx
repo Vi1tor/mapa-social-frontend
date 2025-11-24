@@ -46,8 +46,9 @@ export function Sobre() {
               <div className="intro-image-container">
                 <div className="image-card">
                   <img
-                    src="src/assets/images/Pessoas-Mapa.png"
+                    src="/assets/images/Pessoas-Mapa.png"
                     alt="Ilustração de pessoas usando o mapa social"
+                    loading="lazy"
                   />
                 </div>
               </div>
@@ -83,8 +84,9 @@ export function Sobre() {
               <div className="why-image-container">
                 <div className="image-card">
                   <img
-                    src="src/assets/images/Mapa3d.png"
+                    src="/assets/images/Mapa3d.png"
                     alt="Ilustração de mapa 3D"
+                    loading="lazy"
                   />
                 </div>
               </div>
@@ -121,8 +123,9 @@ export function Sobre() {
               <div className="objective-image-container">
                 <div className="image-card">
                   <img
-                    src="src/assets/images/Menina-Notebook.png"
+                    src="/assets/images/Menina-Notebook.png"
                     alt="Ilustração de menina com notebook"
+                    loading="lazy"
                   />
                 </div>
               </div>

@@ -15,6 +15,7 @@ export function Sugestoes() {
   });
   const userId = localStorage.getItem('userId');
   const userName = localStorage.getItem('userName');
+  const userRole = localStorage.getItem('userRole');
   const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8080';
 
   useEffect(() => {
@@ -28,7 +29,11 @@ export function Sugestoes() {
   const carregarSugestoes = async () => {
     try {
       setLoading(true);
-      const res = await fetch(`${API_BASE}/sugestoes/usuario/${userId}`);
+      // Se for ADMIN ou SUPER_ADMIN busca todas; caso contrário apenas do usuário
+      const url = (userRole === 'ADMIN' || userRole === 'SUPER_ADMIN')
+        ? `${API_BASE}/sugestoes`
+        : `${API_BASE}/sugestoes/usuario/${userId}`;
+      const res = await fetch(url);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
       const mapped = (data || []).map(s => ({
@@ -105,7 +110,7 @@ export function Sugestoes() {
             <button onClick={() => navigate('/acesso')} className="back-button">
               ← Voltar
             </button>
-            <h2>Minhas Sugestões {userName ? `— ${userName}` : ''}</h2>
+            <h2>{(userRole === 'ADMIN' || userRole === 'SUPER_ADMIN') ? 'Todas as Sugestões' : 'Minhas Sugestões'} {userName ? `— ${userName}` : ''}</h2>
             <button onClick={() => setShowForm(!showForm)} className="add-button">
               {showForm ? "Cancelar" : "+ Nova Sugestão"}
             </button>
