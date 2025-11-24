@@ -41,6 +41,13 @@ export function Header({ onLogin, onLogout, userName, isLoggedIn }) {
 
         {!isAcessoPage && (
           <>
+            {/* Overlay escuro quando menu mobile aberto */}
+            <div 
+              className={`menu-overlay ${menuOpen ? "open" : ""}`}
+              onClick={closeMenu}
+              aria-hidden="true"
+            />
+
             <button
               className={`hamburger ${menuOpen ? "active" : ""}`}
               onClick={toggleMenu}
