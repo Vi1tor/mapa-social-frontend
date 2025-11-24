@@ -246,6 +246,15 @@
   font-size: 12px;
   font-weight: bold;
   text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.badge-role.super_admin {
+  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+  color: #1a202c;
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.4);
 }
 
 .badge-role.admin {
@@ -258,14 +267,68 @@
   color: #4a5568;
 }
 
+.action-buttons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.btn-promover {
+  background: #48bb78;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.3s ease;
+}
+
+.btn-promover:hover {
+  background: #38a169;
+  transform: scale(1.05);
+}
+
+.btn-rebaixar {
+  background: #ed8936;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.3s ease;
+}
+
+.btn-rebaixar:hover {
+  background: #dd6b20;
+  transform: scale(1.05);
+}
+
+.btn-bloquear {
+  background: #fc8181;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.3s ease;
+}
+
+.btn-bloquear:hover {
+  background: #f56565;
+  transform: scale(1.05);
+}
+
 .btn-delete {
   background: #f56565;
   color: white;
   border: none;
-  padding: 8px 16px;
+  padding: 6px 12px;
   border-radius: 6px;
   cursor: pointer;
-  font-size: 13px;
+  font-size: 12px;
   transition: all 0.3s ease;
 }
 
@@ -277,6 +340,50 @@
 .btn-delete:disabled {
   background: #cbd5e0;
   cursor: not-allowed;
+}
+
+.super-admin-badge {
+  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+  color: #1a202c;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.4);
+}
+
+.btn-desbloquear {
+  background: #48bb78;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.3s ease;
+}
+
+.btn-desbloquear:hover {
+  background: #38a169;
+  transform: scale(1.05);
+}
+
+.badge-bloqueado {
+  background: #fc8181;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.badge-ativo {
+  background: #48bb78;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: bold;
 }
 
 .info-message {
