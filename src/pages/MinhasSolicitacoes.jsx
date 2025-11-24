@@ -6,6 +6,7 @@ export function MinhasSolicitacoes() {
   const navigate = useNavigate();
   const [solicitacoes, setSolicitacoes] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
   const [filtroStatus, setFiltroStatus] = useState('TODAS');
 
   const userId = localStorage.getItem('userId');
@@ -24,12 +25,21 @@ export function MinhasSolicitacoes() {
   const carregarSolicitacoes = async () => {
     setLoading(true);
     try {
+      setError(false);
       const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8080';
       const response = await fetch(`${API_BASE}/solicitacoes/usuario/${userId}`);
+      if (!response.ok) {
+        console.error('Fetch responded with non-OK status', response.status);
+        setSolicitacoes([]);
+        setError(true);
+        return;
+      }
       const data = await response.json();
       setSolicitacoes(data);
     } catch (error) {
       console.error('Erro ao carregar solicitações:', error);
+      setSolicitacoes([]);
+      setError(true);
     } finally {
       setLoading(false);
     }
@@ -120,6 +130,11 @@ export function MinhasSolicitacoes() {
 
   return (
     <div className="minhas-solicitacoes-container">
+      {error && (
+        <div className="error-box">
+          <p>❌ Erro ao carregar solicitações. Verifique se o backend está rodando e se você tem permissão.</p>
+        </div>
+      )}
       <div className="solicitacoes-header">
         <button className="btn-voltar" onClick={() => navigate('/acesso')}>
           ← Voltar
