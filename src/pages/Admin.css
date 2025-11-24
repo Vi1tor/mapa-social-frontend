@@ -404,27 +404,127 @@
 
   .admin-sidebar {
     width: 100%;
-    padding: 20px;
+    padding: 16px 12px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .admin-title {
+    font-size: 20px;
+    margin-bottom: 16px;
   }
 
   .admin-nav {
     flex-direction: row;
     overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    gap: 8px;
+    padding-bottom: 8px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+  }
+
+  .admin-nav::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  .admin-nav::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .admin-nav::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
   }
 
   .nav-btn {
     white-space: nowrap;
+    flex-shrink: 0;
+    font-size: 14px;
+    padding: 10px 16px;
+    min-width: fit-content;
   }
 
   .admin-content {
-    padding: 20px;
+    padding: 16px 12px;
+  }
+
+  .dashboard-section h2,
+  .sugestoes-section h2,
+  .usuarios-section h2,
+  .servicos-section h2,
+  .categorias-section h2 {
+    font-size: 22px;
+    margin-bottom: 20px;
   }
 
   .stats-grid {
     grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .stat-card {
+    padding: 20px;
+  }
+
+  .stat-icon {
+    font-size: 36px;
+  }
+
+  .stat-info h3 {
+    font-size: 28px;
   }
 
   .table-container {
-    overflow-x: scroll;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 8px;
+  }
+
+  .usuarios-table {
+    min-width: 800px;
+  }
+
+  .sugestoes-list {
+    gap: 16px;
+  }
+
+  .sugestao-card {
+    padding: 20px;
+  }
+
+  .sugestao-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .sugestao-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .btn-aprovar,
+  .btn-rejeitar {
+    width: 100%;
+    min-height: 48px;
+    font-size: 15px;
+  }
+
+  .action-buttons {
+    justify-content: flex-start;
+  }
+
+  .btn-promover,
+  .btn-rebaixar,
+  .btn-bloquear,
+  .btn-delete,
+  .btn-desbloquear {
+    font-size: 13px;
+    padding: 8px 12px;
+    min-height: 44px;
   }
 }
