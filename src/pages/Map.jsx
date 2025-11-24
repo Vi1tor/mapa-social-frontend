@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
@@ -41,6 +42,7 @@ async function geocodeAddress(address) {
 export default function MapPage({ height = '80vh' }) {
   const [markers, setMarkers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
@@ -188,42 +190,45 @@ export default function MapPage({ height = '80vh' }) {
                     🧭 COMO CHEGAR (GPS)
                   </button>
                   <div style={{display: 'flex', gap: '8px'}}>
-                    <a 
-                      href={`/solicitar-servico/${m.id}`}
+                    <button
+                      type="button"
+                      onClick={() => navigate(`/solicitar-servico/${m.id}`)}
                       style={{
                         flex: 1,
                         textAlign: 'center',
                         padding: '10px 12px',
                         background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
                         color: 'white',
-                        textDecoration: 'none',
+                        border: 'none',
                         borderRadius: '8px',
                         fontSize: '13px',
                         fontWeight: '600',
+                        cursor: 'pointer',
                         transition: 'all 0.2s',
                         boxShadow: '0 2px 6px rgba(16, 185, 129, 0.3)'
                       }}
                     >
                       📋 Solicitar
-                    </a>
-                    <a 
-                      href={`/servicos`}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => navigate('/servicos')}
                       style={{
                         flex: 1,
                         textAlign: 'center',
                         padding: '10px 12px',
                         background: '#f1f5f9',
                         color: '#475569',
-                        textDecoration: 'none',
+                        border: '1px solid #cbd5e1',
                         borderRadius: '8px',
                         fontSize: '13px',
                         fontWeight: '600',
-                        transition: 'all 0.2s',
-                        border: '1px solid #cbd5e1'
+                        cursor: 'pointer',
+                        transition: 'all 0.2s'
                       }}
                     >
                       ℹ️ Detalhes
-                    </a>
+                    </button>
                   </div>
                 </div>
               </div>
