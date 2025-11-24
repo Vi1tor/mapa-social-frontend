@@ -38,9 +38,9 @@ export function ServicoSocialCard({ servico, onNavigate }) {
   };
 
   const handleVerNoMapa = () => {
-    // Abre o mapa no site mesmo, focando nesse serviço
+    // Navega internamente (SPA) para evitar 404 em hospedagem sem fallback
     const endereco = servico.enderecoResumo || `${servico.rua}, ${servico.numero}`;
-    window.open(`/map?servico=${servico.id}&endereco=${encodeURIComponent(endereco)}`, '_blank');
+    navigate(`/map?servico=${servico.id}&endereco=${encodeURIComponent(endereco)}`);
   };
 
   return (
