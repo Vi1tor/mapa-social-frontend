@@ -65,7 +65,7 @@ export default function MapPage({ height = '80vh' }) {
 
         setMarkers(filled.filter(m => m.latitude && m.longitude));
       } catch (e) {
-        console.error(e);
+        console.error('Erro ao carregar mapa /servicos/mapa:', e);
       } finally {
         setLoading(false);
       }
@@ -75,6 +75,9 @@ export default function MapPage({ height = '80vh' }) {
   return (
     <div style={{ height: height, width: '100%' }}>
       {loading && <p>Carregando mapa...</p>}
+      {!loading && markers.length === 0 && (
+        <p style={{padding:'8px', color:'#475569'}}>Nenhum ponto para exibir. Verifique a conexão com a API e tente novamente.</p>
+      )}
       <MapContainer center={BRAGANCA_CENTER} zoom={13} style={{ height: '100%', width: '100%' }}>
         <TileLayer
           attribution='&copy; OpenStreetMap contributors'

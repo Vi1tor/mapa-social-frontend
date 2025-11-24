@@ -33,9 +33,28 @@ export function SolicitarServico() {
 
     const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8080';
     fetch(`${API_BASE}/servicos/${id}`)
-      .then(res => res.json())
-      .then(data => {
-        setServico(data);
+      .then(async res => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+
+        // Normaliza campos vindos do backend
+        const categoriaNome = data?.categoria?.nome || data?.categoriaNome || '';
+        const end = data?.endereco || {};
+        const enderecoStr = [end.rua, end.numero, end.bairro].filter(Boolean).join(', ')
+          + (end.cidade ? ` - ${end.cidade}` : '')
+          + (end.uf ? `/${end.uf}` : '');
+
+        const model = {
+          id: data.id,
+          nome: data.nome,
+          tipo: data.tipo,
+          telefone: data.telefone,
+          categoria: categoriaNome,
+          endereco: enderecoStr || data.enderecoResumo || '',
+          latitude: end.latitude ?? data.latitude,
+          longitude: end.longitude ?? data.longitude,
+        };
+        setServico(model);
         setLoading(false);
       })
       .catch(error => {

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./Sugestoes.css";
 
 export function Sugestoes() {
@@ -13,17 +13,41 @@ export function Sugestoes() {
     endereco: "",
     descricao: ""
   });
+  const userId = localStorage.getItem('userId');
+  const userName = localStorage.getItem('userName');
+  const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8080';
 
   useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      setSugestoes([
-        { id: 1, nomeServico: "Posto de Saúde Jardim", categoria: "Saúde", status: "Em Análise", data: "10/11/2025" },
-        { id: 2, nomeServico: "Biblioteca Comunitária", categoria: "Educação", status: "Aprovado", data: "05/11/2025" },
-      ]);
+    if (!userId) {
       setLoading(false);
-    }, 500);
+      return;
+    }
+    carregarSugestoes();
   }, []);
+
+  const carregarSugestoes = async () => {
+    try {
+      setLoading(true);
+      const res = await fetch(`${API_BASE}/sugestoes/usuario/${userId}`);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      const mapped = (data || []).map(s => ({
+        id: s.id,
+        nomeServico: s.nomeSugerido,
+        categoria: s.categoria || '-',
+        endereco: s.enderecoSugerido,
+        descricao: s.descricaoSugerida,
+        status: s.status === 'PENDENTE' ? 'Em Análise' : (s.status === 'APROVADO' ? 'Aprovado' : 'Rejeitado'),
+        data: s.dataSugestao ? new Date(s.dataSugestao).toLocaleDateString('pt-BR') : ''
+      }));
+      setSugestoes(mapped);
+    } catch (e) {
+      console.error('Erro ao carregar sugestões', e);
+      setSugestoes([]);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleChange = (e) => {
     setFormData({
@@ -32,17 +56,37 @@ export function Sugestoes() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const novaSugestao = {
-      id: Date.now(),
-      ...formData,
-      status: "Em Análise",
-      data: new Date().toLocaleDateString('pt-BR')
-    };
-    setSugestoes([novaSugestao, ...sugestoes]);
-    setFormData({ nomeServico: "", categoria: "", endereco: "", descricao: "" });
-    setShowForm(false);
+    if (!userId) {
+      alert('Você precisa estar logado para enviar uma sugestão.');
+      navigate('/login');
+      return;
+    }
+    try {
+      const payload = {
+        usuarioId: parseInt(userId),
+        nomeSugerido: formData.nomeServico.trim(),
+        enderecoSugerido: formData.endereco.trim(),
+        descricaoSugerida: formData.descricao.trim()
+      };
+      const res = await fetch(`${API_BASE}/sugestoes`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.message || `HTTP ${res.status}`);
+      }
+      alert('✅ Sugestão enviada! Ela será analisada pela administração.');
+      setFormData({ nomeServico: "", categoria: "", endereco: "", descricao: "" });
+      setShowForm(false);
+      await carregarSugestoes();
+    } catch (e) {
+      console.error('Erro ao enviar sugestão', e);
+      alert('❌ Não foi possível enviar sua sugestão. Tente novamente.');
+    }
   };
 
   const getStatusClass = (status) => {
@@ -61,7 +105,7 @@ export function Sugestoes() {
             <button onClick={() => navigate('/acesso')} className="back-button">
               ← Voltar
             </button>
-            <h2>Minhas Sugestões</h2>
+            <h2>Minhas Sugestões {userName ? `— ${userName}` : ''}</h2>
             <button onClick={() => setShowForm(!showForm)} className="add-button">
               {showForm ? "Cancelar" : "+ Nova Sugestão"}
             </button>
