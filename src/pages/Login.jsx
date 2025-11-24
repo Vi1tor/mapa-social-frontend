@@ -36,7 +36,13 @@ export function Login({ onLogin }) {
         localStorage.setItem("userId", data.id);
 
         if (onLogin) onLogin(data.email);
-        navigate("/acesso");
+        
+        // Redirecionar baseado no role
+        if (data.role === 'ADMIN' || data.role === 'SUPER_ADMIN') {
+          navigate("/admin");
+        } else {
+          navigate("/acesso");
+        }
       } else {
         const data = await response.json().catch(() => ({}));
         setError(data.message || "Credenciais inválidas.");
