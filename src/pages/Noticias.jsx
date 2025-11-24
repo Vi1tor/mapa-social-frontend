@@ -2,13 +2,18 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Noticias.css";
 
-export function Noticias() {
+export function Noticias({ isLoggedIn, userName}) {
   const navigate = useNavigate();
   const [noticias, setNoticias] = useState([]);
   const [loading, setLoading] = useState(true);
   const [categoriaFiltro, setCategoriaFiltro] = useState("Todas");
 
   useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("/login");
+      return;
+    }
+    
     setLoading(true);
     setTimeout(() => {
       setNoticias([

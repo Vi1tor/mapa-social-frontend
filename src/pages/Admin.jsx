@@ -1,16 +1,23 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Admin.css";
 
-function Admin() {
+function Admin({ isLoggedIn, userName}) {
   const [activeTab, setActiveTab] = useState("dashboard");
   const [stats, setStats] = useState(null);
   const [sugestoesPendentes, setSugestoesPendentes] = useState([]);
   const [usuarios, setUsuarios] = useState([]);
   const [loading, setLoading] = useState(false);
-
+  const navigate = useNavigate();
   const API_URL = "http://localhost:8080/admin";
 
+
   useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("/login");
+      return;
+    }
+
     if (activeTab === "dashboard") {
       fetchEstatisticas();
     } else if (activeTab === "sugestoes") {

@@ -21,8 +21,17 @@
   gap: 24px;
 }
 
+button.back-button {
+  background-color: #233e83;
+  color: white;
+}
+
+button.back-button:hover {
+  background-color: #1d305f;
+}
+
 .back-button {
-  background-color: #7692ca;
+  background-color: #233e83;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -33,7 +42,7 @@
 }
 
 .back-button:hover {
-  background-color: #5a7bb8;
+  background-color: #1d305f;
 }
 
 .favoritos-header h2 {
@@ -83,7 +92,7 @@
 }
 
 .favorito-card {
-  background: white;
+  background: #c9d2df;
   border-radius: 12px;
   padding: 24px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -127,12 +136,12 @@
 }
 
 .btn-ver {
-  background-color: #7692ca;
+  background-color: #233e83;
   color: white;
 }
 
 .btn-ver:hover {
-  background-color: #5a7bb8;
+  background-color: #1d305f;
 }
 
 .btn-remover {
@@ -141,7 +150,7 @@
 }
 
 .btn-remover:hover {
-  background-color: #dc2626;
+  background-color: #9c2020;
 }
 
 @media (max-width: 768px) {

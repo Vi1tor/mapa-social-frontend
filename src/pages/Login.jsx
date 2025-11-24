@@ -27,6 +27,11 @@ export function Login({ onLogin }) {
       });
 
       if (response.ok) {
+
+        localStorage.setItem("isLoggedIn", "true");
+        localStorage.setItem("userEmail", email);
+        localStorage.setItem("userName", email.charAt(0).toUpperCase() + email.slice(1))
+
         const data = await response.json();
         if (onLogin) onLogin(email);
         navigate("/acesso");
@@ -45,20 +50,21 @@ export function Login({ onLogin }) {
     <div className="login-page">
       <main className="login-main">
         <div className="login-wrapper">
-          <h2>Faça Login</h2>
+          
 
           <div className="login-form-container">
-            <form onSubmit={handleSubmit} className="login-form">
-              <div>
-                <label>E-mail</label>
-                <input
-                  type="email"
-                  placeholder="E-mail"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-              </div>
+            <h2>Faça Login</h2>
+              <form onSubmit={handleSubmit} className="login-form">
+                <div>
+                  <label>E-mail</label>
+                  <input
+                    type="email"
+                    placeholder="E-mail"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                </div>
 
               <div>
                 <label>Senha</label>
@@ -74,7 +80,7 @@ export function Login({ onLogin }) {
               {error && <p className="error" style={{color: 'red', marginTop: '10px'}}>{error}</p>}
 
               <div className="forgot-password">
-                <Link to="#" className="forgot-link">
+                <Link to="/recuperar-senha" className="forgot-link">
                   Esqueceu a senha?
                 </Link>
               </div>

@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import "./Cadastro.css";
 
 export function Cadastro() {
+  
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({

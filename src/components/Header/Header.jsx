@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./Header.css";
 
-export function Header({ isLoggedIn = false, onLogout, userName }) {
+export function Header({ onLogin, onLogout, userName, isLoggedIn }) {
   const location = useLocation();
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -81,18 +81,47 @@ export function Header({ isLoggedIn = false, onLogout, userName }) {
                 </>
               ) : (
                 <>
-                  {userName && (
+                  {
+                  userName && (
+                    
                     <div className="user-menu-container" ref={userMenuRef}>
+                      <>
+                        <Link
+                          to="/"
+                          className={`nav-link ${isActive("/") ? "nav-active" : ""}`}
+                          onClick={closeMenu}
+                        >
+                          Home
+                        </Link>
+                        <Link
+                          to="/sobre"
+                          className={`nav-link ${isActive("/sobre") ? "nav-active" : ""}`}
+                          onClick={closeMenu}
+                        >
+                          Sobre
+                        </Link>
+                        <Link
+                          to="/contato"
+                          className={`nav-link ${isActive("/contato") ? "nav-active" : ""}`}
+                          onClick={closeMenu}
+                        >
+                          Contato
+                        </Link>
+                      </>
+
                       <div 
                         className="user-info" 
-                        onClick={() => setUserMenuOpen(!userMenuOpen)}
+                        onClick={() => {
+                          navigate("/acesso");
+                          closeMenu();
+                        }}
                       >
                         <div className="user-avatar">
                           <span className="user-initial">{userName[0].toUpperCase()}</span>
                         </div>
                         <span className="user-name">{userName}</span>
-                        <span className="dropdown-arrow">{userMenuOpen ? '▲' : '▼'}</span>
                       </div>
+
                       {userMenuOpen && (
                         <div className="user-dropdown">
                           <button 
@@ -159,9 +188,12 @@ export function Header({ isLoggedIn = false, onLogout, userName }) {
         {isAcessoPage && (
           <button
             className="button-access"
-            onClick={() => navigate("/login")}
+            onClick={() => {
+              onLogout?.();
+              navigate("/");
+            }}
           >
-            VOLTAR
+            SAIR
           </button>
         )}
       </div>

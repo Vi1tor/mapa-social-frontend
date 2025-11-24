@@ -1,3 +1,5 @@
+/* === ESTRUTURA PRINCIPAL === */
+
 .acesso-page {
   min-height: 100vh;
   display: flex;
@@ -10,9 +12,34 @@
   flex: 1;
   display: flex;
   justify-content: center;
-  align-items: center;
-  width: 100%;
+  padding: 48px 24px; /* igual ao sobre */
 }
+
+/* === CARD GRANDE (copiado do SOBRE) === */
+
+.acesso-container {
+  width: 100%;
+  max-width: 1120px;
+  background-color: #ffffff;
+  border-radius: 20px;
+  padding: 48px 40px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.acesso-container:hover {
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .acesso-container {
+    padding: 32px 24px;
+    border-radius: 16px;
+  }
+}
+
+/* === CONTEÚDO INTERNO === */
 
 .acesso-wrapper {
   display: flex;
@@ -20,26 +47,38 @@
   align-items: center;
   text-align: center;
   width: 100%;
-  max-width: 1120px;
-  padding: 48px 24px;
 }
 
-.acesso-title {
+.hero-title {
   font-size: 2rem;
   font-weight: bold;
-  margin-bottom: 48px;
+  margin-bottom: 32px;
+  color: #233e83;
+  text-align: center;           /* garante alinhamento */
+  width: 100%;                  /* ocupa toda a linha */
+  display: flex;                /* ajuda no centramento interno */
+  justify-content: center;      /* centraliza conteúdo */
+  align-items: center;          /* alinha verticalmente */
+  margin-bottom: 32px;
+}
+
+@media (min-width: 768px) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
 }
 
 .highlight {
   color: #233e83;
 }
 
+/* Seção dos cards */
 .acesso-section {
   margin-top: 32px;
   width: 100%;
 }
 
-.acesso-section-title {
+.services-title {
   font-size: 2rem;
   font-weight: bold;
   text-align: center;
@@ -47,29 +86,39 @@
   margin-bottom: 32px;
 }
 
+@media (min-width: 768px) {
+  .services-title {
+    font-size: 2.3rem;
+  }
+}
+
+/* GRID DOS CARDS */
 .acesso-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 24px;
   width: 100%;
-  max-width: 680px; 
+  max-width: 680px;
   margin: 0 auto;
 }
 
 @media (max-width: 768px) {
+  .acesso-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Ajustes para mobile */
+@media (max-width: 768px) {
   .acesso-wrapper {
-    padding: 24px 16px;
+    padding: 0;
   }
 
-  .acesso-title {
+  .hero-title {
     font-size: 1.75rem;
   }
 
-  .acesso-section-title {
+  .services-title {
     font-size: 1.5rem;
-  }
-
-  .acesso-grid {
-    grid-template-columns: 1fr;
   }
 }

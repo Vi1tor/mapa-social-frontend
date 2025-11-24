@@ -7,6 +7,21 @@
 
 .home-main {
   flex: 1;
+  display: flex;
+  justify-content: center;
+  padding: 48px 24px;
+}
+
+.home-container {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  justify-content: center;
+  background-color: #ffffff;
+  border-radius: 20px;
+  padding: 48px 40px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .hero-section {
@@ -96,6 +111,14 @@
   color: #9ca3af;
   pointer-events: none; 
 }
+
+.search-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
 
 .map-placeholder {
   margin-top: 32px;

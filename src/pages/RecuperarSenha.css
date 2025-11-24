@@ -1,11 +1,11 @@
-.cadastro-page {
+.recuperar-page {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   background-color: #f6f7f8;
 }
 
-.cadastro-main {
+.recuperar-main {
   flex: 1;
   display: flex;
   justify-content: center;
@@ -13,53 +13,51 @@
   padding: 48px 24px;
 }
 
-.cadastro-wrapper {
+.recuperar-wrapper {
   width: 100%;
   max-width: 500px;
   text-align: center;
 }
 
-.cadastro-wrapper h2 {
+.recuperar-wrapper h2 {
   font-size: 36px;
   font-weight: bold;
-  color: 
-  #2c4c6d;
+  color: #2c4c6d;
   margin-bottom: 48px;
 }
 
-.cadastro-form-container {
+.recuperar-form-container {
   background-color: #c9d2df;
   padding: 32px;
   border-radius: 12px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.15);
 }
 
-.cadastro-form {
+.recuperar-form {
   display: flex;
   flex-direction: column;
   gap: 24px;
 }
 
-.cadastro-form label {
+.recuperar-form label {
   display: block;
   text-align: left;
   font-weight: 600;
   color: #114186;
-;
   margin-bottom: 8px;
 }
 
-.cadastro-form input {
+.recuperar-form input {
   width: 93%;
   padding: 16px;
   border-radius: 8px;
   border: 2px solid #b2bdd6;
-  background-color: #fffffff2;
-  color: #000000;
+  background-color: #ffffff;
+  color: #000;
   font-size: 16px;
 }
 
-.cadastro-form input:focus {
+.recuperar-form input:focus {
   outline: none;
   border-color: #3a528f;
 }
@@ -70,32 +68,38 @@
   text-align: center;
 }
 
+.success {
+  color: #1a7f2a;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
 .submit-button {
-  width: 40%;
+  width: 50%;
   background-color: #1d2e81;
-  color: rgb(255, 255, 255);
+  color: white;
   padding: 16px;
   border-radius: 12px;
   font-weight: 600;
   font-size: 18px;
   border: none;
   cursor: pointer;
-  transition: background-color 0.3s;
   display: block;
   margin: 0 auto;
+  transition: background-color 0.3s;
 }
 
 .submit-button:hover {
   background-color: #172467;
 }
 
-.create-account {
+.back-login {
   margin-top: 32px;
   font-size: 16px;
   color: #122879;
 }
 
-.create-account-button {
+.back-login-button {
   background-color: #1d2e81;
   color: white;
   padding: 8px 16px;
@@ -106,6 +110,6 @@
   transition: background-color 0.3s;
 }
 
-.create-account-button:hover {
+.back-login-button:hover {
   background-color: #172467;
 }

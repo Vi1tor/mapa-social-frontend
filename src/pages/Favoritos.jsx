@@ -2,12 +2,17 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Favoritos.css";
 
-export function Favoritos() {
+export function Favoritos({ isLoggedIn, userName}) {
   const navigate = useNavigate();
   const [favoritos, setFavoritos] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("/login");
+      return;
+    }
+    
     setLoading(true);
     setTimeout(() => {
       setFavoritos([
