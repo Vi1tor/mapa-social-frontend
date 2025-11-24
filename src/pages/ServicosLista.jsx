@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { ServicoSocialCard } from '../components/Cards/ServicoSocialCard';
 import './ServicosLista.css';
 
 export function ServicosLista() {
+  const [searchParams] = useSearchParams();
   const [servicos, setServicos] = useState([]);
   const [categorias, setCategorias] = useState([]);
   const [categoriaFiltro, setCategoriaFiltro] = useState('todas');
-  const [busca, setBusca] = useState('');
+  const [busca, setBusca] = useState(searchParams.get('busca') || '');
   const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const ITEMS_PER_PAGE = 12;
 
   useEffect(() => {
     fetchServicos();
@@ -53,6 +57,14 @@ export function ServicosLista() {
                        servico.enderecoResumo?.toLowerCase().includes(busca.toLowerCase());
     return matchCategoria && matchBusca;
   });
+
+  const totalPages = Math.ceil(servicosFiltrados.length / ITEMS_PER_PAGE);
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const servicosPaginados = servicosFiltrados.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+
+  useEffect(() => {
+    setCurrentPage(1); // Reset to page 1 when filters change
+  }, [busca, categoriaFiltro]);
 
   return (
     <div className="servicos-lista-page">

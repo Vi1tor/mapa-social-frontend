@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import { ServiceCard } from "../components/Cards/ServiceCard";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./HomePage.css";
 import MapPage from "./Map.jsx";
 
 function HomePage() {
+  const navigate = useNavigate();
   const [selectedServices, setSelectedServices] = useState([]);
   const [searchText, setSearchText] = useState("");
 
@@ -44,7 +45,16 @@ function HomePage() {
   };
 
   const handleSearch = () => {
-    console.log("Buscando por:", searchText);
+    if (searchText.trim()) {
+      // Navega para lista de serviços com busca
+      navigate(`/servicos?busca=${encodeURIComponent(searchText.trim())}`);
+    }
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
   };
 
   const services = [
@@ -86,6 +96,7 @@ function HomePage() {
                     className="search-input"
                     value={searchText}
                     onChange={handleSearchChange}
+                    onKeyPress={handleKeyPress}
                   />
                   <button type="submit" className="search-button" onClick={handleSearch}>
                     <img
