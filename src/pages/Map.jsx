@@ -82,20 +82,21 @@ export default function MapPage({ height = '80vh' }) {
 
         {markers.map(m => (
           <Marker key={m.id} position={[m.latitude, m.longitude]}>
-            <Popup maxWidth={300}>
-              <div style={{minWidth: '250px', maxWidth: '300px'}}>
-                <strong style={{fontSize: '18px', color: '#1e293b', display: 'block', marginBottom: '8px'}}>{m.nome}</strong>
+            <Popup maxWidth={320}>
+              <div style={{minWidth: '280px', maxWidth: '320px', padding: '4px'}}>
+                <strong style={{fontSize: '19px', color: '#1e293b', display: 'block', marginBottom: '10px', lineHeight: '1.3'}}>{m.nome}</strong>
                 
                 {m.categoriaNome && (
                   <span style={{
                     display: 'inline-block', 
-                    padding: '4px 12px', 
+                    padding: '5px 14px', 
                     background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                     color: 'white',
                     borderRadius: '20px', 
-                    fontSize: '12px', 
-                    fontWeight: '500',
-                    marginBottom: '10px'
+                    fontSize: '13px', 
+                    fontWeight: '600',
+                    marginBottom: '12px',
+                    boxShadow: '0 2px 4px rgba(102, 126, 234, 0.3)'
                   }}>
                     📁 {m.categoriaNome}
                   </span>
@@ -127,30 +128,80 @@ export default function MapPage({ height = '80vh' }) {
                 </div>
                 
                 <div style={{
-                  marginTop: '15px',
-                  paddingTop: '15px',
-                  borderTop: '1px solid #e5e7eb',
+                  marginTop: '16px',
+                  paddingTop: '16px',
+                  borderTop: '2px solid #e5e7eb',
                   display: 'flex',
                   flexDirection: 'column',
-                  gap: '8px'
+                  gap: '10px'
                 }}>
-                  <a 
-                    href={`/solicitar-servico/${m.id}`}
+                  <button 
+                    onClick={() => {
+                      const endereco = m.enderecoResumo + ', Bragança Paulista, SP';
+                      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+                      const encodedAddress = encodeURIComponent(endereco);
+                      
+                      if (isMobile) {
+                        const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+                        if (isIOS) {
+                          window.location.href = `maps://maps.apple.com/?daddr=${encodedAddress}`;
+                          setTimeout(() => {
+                            window.open(`https://www.google.com/maps/dir/?api=1&destination=${encodedAddress}`, '_blank');
+                          }, 1500);
+                        } else {
+                          window.location.href = `geo:0,0?q=${encodedAddress}`;
+                          setTimeout(() => {
+                            window.open(`https://www.google.com/maps/dir/?api=1&destination=${encodedAddress}`, '_blank');
+                          }, 1500);
+                        }
+                      } else {
+                        window.open(`https://www.google.com/maps/dir/?api=1&destination=${encodedAddress}`, '_blank');
+                      }
+                    }}
                     style={{
                       textAlign: 'center',
-                      padding: '10px 12px',
-                      background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                      padding: '12px 16px',
+                      background: 'linear-gradient(135deg, #2563eb 0%, #1e40af 100%)',
                       color: 'white',
-                      textDecoration: 'none',
+                      border: 'none',
                       borderRadius: '8px',
-                      fontSize: '14px',
-                      fontWeight: '600',
-                      transition: 'all 0.2s'
+                      fontSize: '15px',
+                      fontWeight: '700',
+                      cursor: 'pointer',
+                      transition: 'all 0.3s',
+                      boxShadow: '0 4px 12px rgba(37, 99, 235, 0.4)',
+                      letterSpacing: '0.3px'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.transform = 'translateY(-2px)';
+                      e.target.style.boxShadow = '0 6px 16px rgba(37, 99, 235, 0.5)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.transform = 'translateY(0)';
+                      e.target.style.boxShadow = '0 4px 12px rgba(37, 99, 235, 0.4)';
                     }}
                   >
-                    📋 Solicitar Serviço
-                  </a>
+                    🧭 COMO CHEGAR (GPS)
+                  </button>
                   <div style={{display: 'flex', gap: '8px'}}>
+                    <a 
+                      href={`/solicitar-servico/${m.id}`}
+                      style={{
+                        flex: 1,
+                        textAlign: 'center',
+                        padding: '10px 12px',
+                        background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                        color: 'white',
+                        textDecoration: 'none',
+                        borderRadius: '8px',
+                        fontSize: '13px',
+                        fontWeight: '600',
+                        transition: 'all 0.2s',
+                        boxShadow: '0 2px 6px rgba(16, 185, 129, 0.3)'
+                      }}
+                    >
+                      📋 Solicitar
+                    </a>
                     <a 
                       href={`/servicos`}
                       style={{
@@ -162,30 +213,12 @@ export default function MapPage({ height = '80vh' }) {
                         textDecoration: 'none',
                         borderRadius: '8px',
                         fontSize: '13px',
-                        fontWeight: '500',
-                        transition: 'all 0.2s'
+                        fontWeight: '600',
+                        transition: 'all 0.2s',
+                        border: '1px solid #cbd5e1'
                       }}
                     >
-                      🗺️ Ver Detalhes
-                    </a>
-                    <a 
-                      target="_blank" 
-                      rel="noreferrer" 
-                      href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(m.enderecoResumo + ', Bragança Paulista, SP')}`}
-                      style={{
-                        flex: 1,
-                        textAlign: 'center',
-                        padding: '10px 12px',
-                        background: 'linear-gradient(135deg, #2563eb 0%, #1e40af 100%)',
-                        color: 'white',
-                        textDecoration: 'none',
-                        borderRadius: '8px',
-                        fontSize: '13px',
-                        fontWeight: '500',
-                        transition: 'all 0.2s'
-                      }}
-                    >
-                      🧭 Como Chegar
+                      ℹ️ Detalhes
                     </a>
                   </div>
                 </div>
