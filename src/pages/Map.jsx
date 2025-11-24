@@ -5,6 +5,7 @@ import L from 'leaflet';
 import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
+import { getServicosMapa, API_BASE } from '../services/api';
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -45,13 +46,8 @@ export default function MapPage({ height = '80vh' }) {
     (async () => {
       setLoading(true);
       try {
-        const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8080';
-        const resp = await fetch(`${API_BASE}/servicos/mapa`);
-        if (!resp.ok) {
-          console.error(`API Error: ${resp.status} ${resp.statusText} - URL: ${API_BASE}/servicos/mapa`);
-          throw new Error(`HTTP ${resp.status}: ${resp.statusText}`);
-        }
-        const data = await resp.json();
+        console.log('[MapaSocial] Usando API_BASE =', API_BASE);
+        const data = await getServicosMapa();
 
         const filled = await Promise.all(data.map(async (s) => {
           let lat = s.latitude;
