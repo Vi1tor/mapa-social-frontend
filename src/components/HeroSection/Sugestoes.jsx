@@ -7,6 +7,7 @@ export function Sugestoes() {
   const [sugestoes, setSugestoes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
+  const [selectedStatus, setSelectedStatus] = useState('TODOS');
   const [formData, setFormData] = useState({
     nomeServico: "",
     categoria: "",
@@ -26,13 +27,26 @@ export function Sugestoes() {
     carregarSugestoes();
   }, []);
 
+  // Recarrega quando admin altera o filtro de status
+  useEffect(() => {
+    if (userRole === 'ADMIN' || userRole === 'SUPER_ADMIN') {
+      carregarSugestoes();
+    }
+  }, [selectedStatus, userRole]);
+
   const carregarSugestoes = async () => {
     try {
       setLoading(true);
-      // Se for ADMIN ou SUPER_ADMIN busca todas; caso contrário apenas do usuário
-      const url = (userRole === 'ADMIN' || userRole === 'SUPER_ADMIN')
-        ? `${API_BASE}/sugestoes`
-        : `${API_BASE}/sugestoes/usuario/${userId}`;
+      let url;
+      if (userRole === 'ADMIN' || userRole === 'SUPER_ADMIN') {
+        if (selectedStatus && selectedStatus !== 'TODOS') {
+          url = `${API_BASE}/sugestoes/status/${selectedStatus}`;
+        } else {
+          url = `${API_BASE}/sugestoes`;
+        }
+      } else {
+        url = `${API_BASE}/sugestoes/usuario/${userId}`;
+      }
       const res = await fetch(url);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
@@ -111,6 +125,21 @@ export function Sugestoes() {
               ← Voltar
             </button>
             <h2>{(userRole === 'ADMIN' || userRole === 'SUPER_ADMIN') ? 'Todas as Sugestões' : 'Minhas Sugestões'} {userName ? `— ${userName}` : ''}</h2>
+            {(userRole === 'ADMIN' || userRole === 'SUPER_ADMIN') && (
+              <div className="status-filter">
+                <label htmlFor="statusSelect">Filtrar por status:</label>
+                <select
+                  id="statusSelect"
+                  value={selectedStatus}
+                  onChange={e => setSelectedStatus(e.target.value)}
+                >
+                  <option value="TODOS">Todos</option>
+                  <option value="PENDENTE">Pendentes</option>
+                  <option value="APROVADO">Aprovados</option>
+                  <option value="REJEITADO">Rejeitados</option>
+                </select>
+              </div>
+            )}
             <button onClick={() => setShowForm(!showForm)} className="add-button">
               {showForm ? "Cancelar" : "+ Nova Sugestão"}
             </button>
