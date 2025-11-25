@@ -42,11 +42,18 @@ export function Cadastro() {
 
     setLoading(true);
     try {
-      const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:8080";
+      const rawBase = import.meta.env.VITE_API_BASE || "http://localhost:8080";
+      const API_BASE = rawBase.endsWith('/api/v1') ? rawBase : (rawBase.endsWith('/') ? rawBase + 'api/v1' : rawBase + '/api/v1');
+      
       const response = await fetch(`${API_BASE}/usuarios/cadastro`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nome: formData.nome, email: formData.email, senhaHash: formData.senha, tipo: "COMUM" }),
+        body: JSON.stringify({ 
+          nome: formData.nome.trim(), 
+          email: formData.email.trim(), 
+          senha: formData.senha, 
+          tipo: "COMUM" 
+        }),
       });
 
       if (response.ok) {
