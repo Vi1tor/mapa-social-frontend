@@ -125,13 +125,11 @@
   left: 0;
   width: 100%;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.5);
   z-index: 1000;
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
 }
 
 .menu-overlay.open {
@@ -146,7 +144,8 @@
   height: 100vh;
   width: 80%;
   max-width: 340px;
-  background-color: #c9d2df;
+  background-color: #d4dce8;
+  border-left: 1px solid rgba(35, 62, 131, 0.15);
   box-shadow: -4px 0 20px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
