@@ -1,17 +1,32 @@
 .footer {
-  background-color: #f6f7f8;
+  background: linear-gradient(to top, #e8ecf2 0%, #f6f7f8 100%);
   padding: 0;
   margin-top: auto;
+  border-top: 1px solid rgba(35, 62, 131, 0.08);
 }
 
 .footer-container {
   max-width: 1120px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 24px 24px;
   text-align: center;
 }
 
+@media (min-width: 768px) {
+  .footer-container {
+    padding: 32px 32px;
+  }
+}
+
 .footer-text {
-  color: #193871;
+  color: #365d89;
   font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+@media (min-width: 768px) {
+  .footer-text {
+    font-size: 0.9375rem;
+  }
 }

@@ -1,36 +1,93 @@
 .service-card {
-  background-color: #c9d2df;
-  border-radius: 12px;
+  background: linear-gradient(135deg, #d4dce8 0%, #c9d2df 100%);
+  border-radius: 16px;
   padding: 32px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  gap: 16px;
   min-height: 180px;
   cursor: pointer;
-  transition: box-shadow 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 2px solid transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .service-card:hover {
-  box-shadow: 0 8px 24px rgb(132, 157, 214);
+  transform: translateY(-6px);
+  box-shadow: 0 12px 32px rgba(35, 62, 131, 0.2), 0 4px 12px rgba(118, 146, 202, 0.15);
+  border-color: rgba(35, 62, 131, 0.1);
+}
+
+.service-card:hover::before {
+  opacity: 1;
+}
+
+@media (min-width: 768px) {
+  .service-card {
+    padding: 40px;
+    min-height: 220px;
+    border-radius: 20px;
+  }
 }
 
 .service-card-icon {
   width: 48px;
   height: 48px;
+  transition: transform 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.service-card:hover .service-card-icon {
+  transform: scale(1.1);
+}
+
+@media (min-width: 768px) {
+  .service-card-icon {
+    width: 56px;
+    height: 56px;
+  }
 }
 
 .service-card-title {
   color: #233e83;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 1.125rem;
   text-align: center;
+  line-height: 1.4;
+  position: relative;
+  z-index: 1;
+  letter-spacing: -0.01em;
+}
+
+@media (min-width: 768px) {
+  .service-card-title {
+    font-size: 1.25rem;
+  }
 }
 
 .service-card.selected {
   border: 3px solid #233e83;
-  background-color: #dce4f7;
-  box-shadow: 0 8px 24px rgba(35, 62, 131, 0.4);
-  transition: all 0.3s ease;
+  background: linear-gradient(135deg, #e8eef7 0%, #dce4f7 100%);
+  box-shadow: 0 12px 36px rgba(35, 62, 131, 0.35), 0 4px 16px rgba(118, 146, 202, 0.2);
+  transform: translateY(-4px);
+}
+
+.service-card.selected::before {
+  opacity: 1;
 }

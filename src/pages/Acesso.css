@@ -4,7 +4,7 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: #f6f7f8;
+  background: linear-gradient(to bottom, #f6f7f8 0%, #e8ecf2 100%);
   color: #233e83;
 }
 
@@ -12,7 +12,13 @@
   flex: 1;
   display: flex;
   justify-content: center;
-  padding: 48px 24px; /* igual ao sobre */
+  padding: 48px 24px;
+}
+
+@media (min-width: 768px) {
+  .acesso-main {
+    padding: 72px 32px;
+  }
 }
 
 /* === CARD GRANDE (copiado do SOBRE) === */
@@ -23,13 +29,19 @@
   background-color: #ffffff;
   border-radius: 20px;
   padding: 48px 40px;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 10px 40px rgba(35, 62, 131, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: all 0.3s ease;
 }
 
-.acesso-container:hover {
-  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.12);
-  transform: translateY(-2px);
+@media (min-width: 768px) {
+  .acesso-container {
+    border-radius: 24px;
+    padding: 72px 64px;
+  }
+  
+  .acesso-container:hover {
+    box-shadow: 0 16px 56px rgba(35, 62, 131, 0.12), 0 4px 12px rgba(0, 0, 0, 0.06);
+  }
 }
 
 @media (max-width: 768px) {
@@ -51,20 +63,23 @@
 
 .hero-title {
   font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 32px;
+  font-weight: 800;
+  margin-bottom: 40px;
   color: #233e83;
-  text-align: center;           /* garante alinhamento */
-  width: 100%;                  /* ocupa toda a linha */
-  display: flex;                /* ajuda no centramento interno */
-  justify-content: center;      /* centraliza conteúdo */
-  align-items: center;          /* alinha verticalmente */
-  margin-bottom: 32px;
+  text-align: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
 }
 
 @media (min-width: 768px) {
   .hero-title {
-    font-size: 2.5rem;
+    font-size: 3rem;
+    margin-bottom: 56px;
+    letter-spacing: -0.03em;
   }
 }
 
@@ -74,21 +89,31 @@
 
 /* Seção dos cards */
 .acesso-section {
-  margin-top: 32px;
+  margin-top: 40px;
   width: 100%;
+}
+
+@media (min-width: 768px) {
+  .acesso-section {
+    margin-top: 56px;
+  }
 }
 
 .services-title {
   font-size: 2rem;
-  font-weight: bold;
+  font-weight: 800;
   text-align: center;
-  color: #2c4c6d;
-  margin-bottom: 32px;
+  color: #233e83;
+  margin-bottom: 40px;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
 }
 
 @media (min-width: 768px) {
   .services-title {
-    font-size: 2.3rem;
+    font-size: 2.5rem;
+    margin-bottom: 56px;
+    letter-spacing: -0.03em;
   }
 }
 
@@ -98,8 +123,15 @@
   grid-template-columns: repeat(2, 1fr);
   gap: 24px;
   width: 100%;
-  max-width: 680px;
+  max-width: 720px;
   margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .acesso-grid {
+    gap: 32px;
+    max-width: 800px;
+  }
 }
 
 @media (max-width: 768px) {
