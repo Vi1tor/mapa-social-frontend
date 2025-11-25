@@ -7,14 +7,22 @@
 }
 
 .solicitar-servico-header {
-  margin-bottom: 32px;
+  margin-bottom: 24px;
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+@media (min-width: 768px) {
+  .solicitar-servico-header {
+    margin-bottom: 32px;
+    gap: 16px;
+  }
 }
 
 .btn-voltar {
-  padding: 8px 16px;
+  padding: 10px 16px;
   background: white;
   border: 2px solid #e2e8f0;
   border-radius: 8px;
@@ -23,6 +31,10 @@
   font-weight: 600;
   color: #334155;
   transition: all 0.3s ease;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .btn-voltar:hover {
@@ -281,21 +293,34 @@
 /* Responsivo */
 @media (max-width: 768px) {
   .solicitar-servico-container {
-    padding: 16px;
+    padding: 16px 12px;
   }
 
   .solicitar-servico-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
+    flex-direction: row;
+    align-items: center;
   }
 
   .solicitar-servico-header h1 {
-    font-size: 22px;
+    font-size: 20px;
+    word-break: break-word;
+  }
+
+  .servico-info-card,
+  .mapa-localizacao,
+  .solicitacao-form,
+  .info-adicional {
+    padding: 16px;
   }
 
   .servico-header {
     flex-direction: column;
+    gap: 12px;
+  }
+  
+  .servico-header h2 {
+    font-size: 20px;
+    word-break: break-word;
   }
 
   .categoria-badge {
@@ -304,10 +329,31 @@
 
   .form-actions {
     flex-direction: column;
+    gap: 10px;
   }
 
   .btn-cancelar,
   .btn-solicitar {
     width: 100%;
+    min-height: 48px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .solicitar-servico-container {
+    padding: 12px 8px;
+  }
+  
+  .solicitar-servico-header h1 {
+    font-size: 18px;
+  }
+  
+  .servico-header h2 {
+    font-size: 18px;
+  }
+  
+  .detail-item {
+    font-size: 13px;
   }
 }

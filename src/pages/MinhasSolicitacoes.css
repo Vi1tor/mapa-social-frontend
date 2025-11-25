@@ -95,9 +95,16 @@
 /* Grid de Solicitações */
 .solicitacoes-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-  gap: 20px;
+  grid-template-columns: 1fr;
+  gap: 16px;
   margin-bottom: 32px;
+}
+
+@media (min-width: 640px) {
+  .solicitacoes-grid {
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 20px;
+  }
 }
 
 .solicitacao-card {
@@ -135,7 +142,8 @@
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 16px;
-  gap: 12px;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
 .servico-nome h3 {
@@ -143,6 +151,14 @@
   font-size: 18px;
   color: #1e293b;
   line-height: 1.4;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+@media (max-width: 480px) {
+  .servico-nome h3 {
+    font-size: 16px;
+  }
 }
 
 .status-badge {
@@ -151,6 +167,14 @@
   font-size: 12px;
   font-weight: 600;
   white-space: nowrap;
+  flex-shrink: 0;
+}
+
+@media (max-width: 480px) {
+  .status-badge {
+    padding: 5px 10px;
+    font-size: 11px;
+  }
 }
 
 .status-badge.pendente {
@@ -185,10 +209,16 @@
 
 .info-item {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 8px;
   font-size: 14px;
   color: #64748b;
+  word-break: break-word;
+}
+
+.info-item .icon {
+  flex-shrink: 0;
+  margin-top: 2px;
 }
 
 .info-item .icon {
@@ -272,7 +302,7 @@
 
 .btn-navigate-small,
 .btn-cancelar-small {
-  padding: 8px 16px;
+  padding: 10px 16px;
   border: none;
   border-radius: 6px;
   font-size: 13px;
@@ -280,6 +310,18 @@
   cursor: pointer;
   transition: all 0.3s ease;
   flex: 1;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 480px) {
+  .btn-navigate-small,
+  .btn-cancelar-small {
+    font-size: 14px;
+    padding: 12px 16px;
+  }
 }
 
 .btn-navigate-small {
@@ -387,13 +429,14 @@
 /* Responsivo */
 @media (max-width: 768px) {
   .minhas-solicitacoes-container {
-    padding: 16px;
+    padding: 16px 12px;
   }
 
   .solicitacoes-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
+    margin-bottom: 24px;
   }
 
   .solicitacoes-header h1 {
@@ -403,14 +446,30 @@
   .filtros-container {
     flex-direction: column;
     align-items: flex-start;
+    padding: 16px;
+    gap: 12px;
   }
 
-  .solicitacoes-grid {
-    grid-template-columns: 1fr;
+  .filtro-group {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .select-filtro {
+    width: 100%;
+    padding: 10px 16px;
+    min-height: 44px;
+  }
+
+  .solicitacao-card {
+    padding: 16px;
   }
 
   .card-actions {
     flex-direction: column;
+    gap: 10px;
   }
 
   .btn-navigate-small,
@@ -419,6 +478,20 @@
   }
 
   .estatisticas {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .minhas-solicitacoes-container {
+    padding: 12px 8px;
+  }
+  
+  .solicitacoes-header h1 {
+    font-size: 20px;
+  }
+  
+  .filtros-container {
+    padding: 12px;
   }
 }

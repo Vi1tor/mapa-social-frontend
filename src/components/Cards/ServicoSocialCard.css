@@ -99,6 +99,8 @@
   align-items: center;
   justify-content: center;
   gap: 6px;
+  min-height: 44px;
+  white-space: nowrap;
 }
 
 .btn-solicitar {
@@ -135,15 +137,17 @@
 
 @media (max-width: 768px) {
   .servico-social-card {
-    padding: 15px;
+    padding: 16px;
   }
 
   .servico-card-title {
-    font-size: 16px;
+    font-size: 17px;
+    word-break: break-word;
   }
 
   .servico-card-actions {
     flex-direction: column;
+    gap: 10px;
   }
 
   .btn-solicitar,
@@ -151,5 +155,21 @@
   .btn-navegar {
     width: 100%;
     min-width: auto;
+    padding: 12px 16px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .servico-social-card {
+    padding: 14px;
+  }
+  
+  .servico-card-title {
+    font-size: 16px;
+  }
+  
+  .servico-card-info {
+    font-size: 13px;
   }
 }

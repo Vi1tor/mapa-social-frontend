@@ -6,7 +6,13 @@
 .favoritos-main {
   max-width: 1120px;
   margin: 0 auto;
-  padding: 48px 24px;
+  padding: 24px 16px;
+}
+
+@media (min-width: 768px) {
+  .favoritos-main {
+    padding: 48px 24px;
+  }
 }
 
 .favoritos-wrapper {
@@ -18,7 +24,14 @@
 .favoritos-header {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+@media (min-width: 768px) {
+  .favoritos-header {
+    gap: 24px;
+  }
 }
 
 button.back-button {
@@ -34,11 +47,15 @@ button.back-button:hover {
   background-color: #233e83;
   color: white;
   border: none;
-  padding: 10px 20px;
+  padding: 12px 20px;
   border-radius: 8px;
   font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.3s;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .back-button:hover {
@@ -46,9 +63,17 @@ button.back-button:hover {
 }
 
 .favoritos-header h2 {
-  font-size: 2rem;
+  font-size: 1.5rem;
   color: #233e83;
   margin: 0;
+  word-break: break-word;
+  line-height: 1.3;
+}
+
+@media (min-width: 768px) {
+  .favoritos-header h2 {
+    font-size: 2rem;
+  }
 }
 
 .loading-text {
@@ -79,6 +104,10 @@ button.back-button:hover {
   font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.3s;
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .cta-button:hover {
@@ -94,18 +123,39 @@ button.back-button:hover {
 .favorito-card {
   background: #c9d2df;
   border-radius: 12px;
-  padding: 24px;
+  padding: 16px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  gap: 24px;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .favorito-card {
+    padding: 24px;
+    align-items: center;
+    gap: 24px;
+  }
+}
+
+.favorito-info {
+  flex: 1;
+  min-width: 0;
 }
 
 .favorito-info h3 {
   color: #233e83;
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   margin: 0 0 8px 0;
+  word-break: break-word;
+  line-height: 1.3;
+}
+
+@media (min-width: 768px) {
+  .favorito-info h3 {
+    font-size: 1.25rem;
+  }
 }
 
 .favorito-categoria {
@@ -133,6 +183,11 @@ button.back-button:hover {
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
 }
 
 .btn-ver {
@@ -154,13 +209,17 @@ button.back-button:hover {
 }
 
 @media (max-width: 768px) {
-  .favoritos-header {
-    flex-direction: column;
-    align-items: flex-start;
+  .favoritos-wrapper {
+    gap: 24px;
   }
 
-  .favoritos-header h2 {
-    font-size: 1.5rem;
+  .favoritos-header {
+    flex-direction: row;
+  }
+  
+  .back-button {
+    font-size: 14px;
+    padding: 10px 16px;
   }
 
   .favorito-card {
@@ -170,10 +229,28 @@ button.back-button:hover {
 
   .favorito-actions {
     width: 100%;
+    gap: 10px;
   }
 
   .btn-ver,
   .btn-remover {
     flex: 1;
+    font-size: 14px;
+    padding: 12px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .favoritos-main {
+    padding: 16px 12px;
+  }
+  
+  .favorito-info h3 {
+    font-size: 1rem;
+  }
+  
+  .favorito-categoria,
+  .favorito-endereco {
+    font-size: 14px;
   }
 }
