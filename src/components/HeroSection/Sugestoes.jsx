@@ -28,7 +28,6 @@ export function Sugestoes() {
     carregarSugestoes();
   }, []);
 
-  // Recarrega quando admin altera o filtro de status
   useEffect(() => {
     if (userRole === 'ADMIN' || userRole === 'SUPER_ADMIN') {
       carregarSugestoes();

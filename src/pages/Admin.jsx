@@ -27,7 +27,6 @@ function Admin({ isLoggedIn, userName}) {
       return;
     }
 
-    // Verificar se tem permissão de admin
     if (!isAdmin) {
       alert("❌ Acesso negado! Apenas administradores podem acessar esta página.");
       navigate("/acesso");
