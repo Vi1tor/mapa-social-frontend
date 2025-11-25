@@ -57,8 +57,10 @@ export function Sugestoes() {
         categoria: s.categoria || '-',
         endereco: s.enderecoSugerido,
         descricao: s.descricaoSugerida,
+        statusOriginal: s.status,
         status: s.status === 'PENDENTE' ? 'Em Análise' : (s.status === 'APROVADO' ? 'Aprovado' : 'Rejeitado'),
-        data: s.dataSugestao ? new Date(s.dataSugestao).toLocaleDateString('pt-BR') : ''
+        data: s.dataSugestao ? new Date(s.dataSugestao).toLocaleDateString('pt-BR') : '',
+        usuarioId: s.usuarioId
       }));
       setSugestoes(mapped);
     } catch (e) {
@@ -226,15 +228,43 @@ export function Sugestoes() {
               {sugestoes.map(sug => (
                 <div key={sug.id} className="sugestao-card">
                   <div className="sugestao-info">
-                    <h3>{sug.nomeServico}</h3>
-                    <p className="sugestao-categoria">{sug.categoria}</p>
-                    {sug.endereco && <p className="sugestao-endereco">{sug.endereco}</p>}
-                    <p className="sugestao-data">Enviado em: {sug.data}</p>
-                  </div>
-                  <div className="sugestao-status">
-                    <span className={`status-badge ${getStatusClass(sug.status)}`}>
-                      {sug.status}
-                    </span>
+                    <div style={{display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px'}}>
+                      <h3 style={{margin: 0}}>{sug.nomeServico}</h3>
+                      <span className={`status-badge ${getStatusClass(sug.status)}`}>
+                        {sug.status}
+                      </span>
+                    </div>
+                    <p className="sugestao-categoria">
+                      <strong>Categoria:</strong> {sug.categoria}
+                    </p>
+                    {sug.endereco && (
+                      <p className="sugestao-endereco">
+                        <strong>📍 Endereço:</strong> {sug.endereco}
+                      </p>
+                    )}
+                    {sug.descricao && (
+                      <p className="sugestao-descricao" style={{marginTop: '8px', color: '#555'}}>
+                        {sug.descricao}
+                      </p>
+                    )}
+                    <p className="sugestao-data" style={{marginTop: '10px', fontSize: '0.9em', color: '#888'}}>
+                      📅 Enviado em: {sug.data}
+                    </p>
+                    {sug.statusOriginal === 'APROVADO' && (
+                      <p style={{marginTop: '8px', color: '#10b981', fontWeight: 'bold'}}>
+                        ✅ Sua sugestão foi aprovada e será adicionada ao sistema!
+                      </p>
+                    )}
+                    {sug.statusOriginal === 'REJEITADO' && (
+                      <p style={{marginTop: '8px', color: '#ef4444'}}>
+                        ❌ Sua sugestão foi rejeitada. Entre em contato para mais informações.
+                      </p>
+                    )}
+                    {sug.statusOriginal === 'PENDENTE' && (
+                      <p style={{marginTop: '8px', color: '#f59e0b'}}>
+                        ⏳ Sua sugestão está em análise. Aguarde a resposta da administração.
+                      </p>
+                    )}
                   </div>
                 </div>
               ))}

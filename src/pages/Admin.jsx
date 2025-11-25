@@ -454,20 +454,23 @@ function Admin({ isLoggedIn, userName}) {
           <div className="sugestoes-section">
             <h2>Sugestões Pendentes de Aprovação</h2>
             {sugestoesPendentes.length === 0 ? (
-              <p className="empty-message">Nenhuma sugestão pendente no momento.</p>
+              <p className="empty-message">Nenhuma sugestão pendente no momento. ✅</p>
             ) : (
               <div className="sugestoes-list">
                 {sugestoesPendentes.map((sugestao) => (
                   <div key={sugestao.id} className="sugestao-card">
                     <div className="sugestao-header">
                       <h3>{sugestao.nomeSugerido}</h3>
-                      <span className="badge-pendente">PENDENTE</span>
+                      <span className="badge-pendente">⏳ PENDENTE</span>
                     </div>
                     <div className="sugestao-body">
-                      <p><strong>Endereço:</strong> {sugestao.enderecoSugerido || "Não informado"}</p>
-                      <p><strong>Descrição:</strong> {sugestao.descricaoSugerida || "Sem descrição"}</p>
+                      {sugestao.categoria && (
+                        <p><strong>📂 Categoria:</strong> {sugestao.categoria}</p>
+                      )}
+                      <p><strong>📍 Endereço:</strong> {sugestao.enderecoSugerido || "Não informado"}</p>
+                      <p><strong>📝 Descrição:</strong> {sugestao.descricaoSugerida || "Sem descrição"}</p>
                       <p className="sugestao-date">
-                        Sugerido em: {new Date(sugestao.dataSugestao).toLocaleDateString("pt-BR")}
+                        📅 Sugerido em: {new Date(sugestao.dataSugestao).toLocaleDateString("pt-BR")}
                       </p>
                     </div>
                     <div className="sugestao-actions">
@@ -475,13 +478,13 @@ function Admin({ isLoggedIn, userName}) {
                         className="btn-aprovar"
                         onClick={() => aprovarSugestao(sugestao.id)}
                       >
-                        ✓ Aprovar
+                        ✅ Aprovar
                       </button>
                       <button
                         className="btn-rejeitar"
                         onClick={() => rejeitarSugestao(sugestao.id)}
                       >
-                        ✕ Rejeitar
+                        ❌ Rejeitar
                       </button>
                     </div>
                   </div>
