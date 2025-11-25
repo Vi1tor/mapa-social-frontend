@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Noticias.css";
 
-export function Noticias({ isLoggedIn, userName}) {
+export function Noticias({ isLoggedIn }) {
   const navigate = useNavigate();
   const [noticias, setNoticias] = useState([]);
   const [loading, setLoading] = useState(true);

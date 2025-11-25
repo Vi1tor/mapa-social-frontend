@@ -17,7 +17,8 @@ export function Sugestoes() {
   const userId = localStorage.getItem('userId');
   const userName = localStorage.getItem('userName');
   const userRole = localStorage.getItem('userRole');
-  const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8080';
+  const rawBase = import.meta.env.VITE_API_BASE || 'http://localhost:8080/api/v1';
+  const API_BASE = rawBase.endsWith('/api/v1') ? rawBase : (rawBase.endsWith('/') ? rawBase + 'api/v1' : rawBase + '/api/v1');
 
   useEffect(() => {
     if (!userId) {
@@ -40,9 +41,9 @@ export function Sugestoes() {
       let url;
       if (userRole === 'ADMIN' || userRole === 'SUPER_ADMIN') {
         if (selectedStatus && selectedStatus !== 'TODOS') {
-          url = `${API_BASE}/sugestoes/status/${selectedStatus}`;
+          url = `${API_BASE}/admin/sugestoes/status/${selectedStatus}`;
         } else {
-          url = `${API_BASE}/sugestoes`;
+          url = `${API_BASE}/admin/sugestoes`;
         }
       } else {
         url = `${API_BASE}/sugestoes/usuario/${userId}`;
@@ -87,7 +88,8 @@ export function Sugestoes() {
         usuarioId: parseInt(userId),
         nomeSugerido: formData.nomeServico.trim(),
         enderecoSugerido: formData.endereco.trim(),
-        descricaoSugerida: formData.descricao.trim()
+        descricaoSugerida: formData.descricao.trim(),
+        categoria: formData.categoria.trim()
       };
       const res = await fetch(`${API_BASE}/sugestoes`, {
         method: 'POST',

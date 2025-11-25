@@ -3,14 +3,15 @@ import { useNavigate } from "react-router-dom";
 import { AcessoCard } from "../components/Cards/AcessoCard";
 import "./Acesso.css"; 
 
-export function Acesso({ isLoggedIn, userName}) {
+export function Acesso({ isLoggedIn }) {
   const navigate = useNavigate();
+  const userName = localStorage.getItem("userName") || "Usuário";
 
   useEffect(() => {
-    if (localStorage.getItem("isLoggedIn") === "false") {
+    if (!isLoggedIn && localStorage.getItem("isLoggedIn") !== "true") {
       navigate("/login");
+      return;
     }
-    userName = localStorage.getItem("userName");
   }, [isLoggedIn, navigate]);
 
   const handleCardClick = (destination) => {

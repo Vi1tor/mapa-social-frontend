@@ -26,7 +26,8 @@ export function MinhasSolicitacoes() {
     setLoading(true);
     try {
       setError(false);
-      const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8080';
+      const rawBase = import.meta.env.VITE_API_BASE || 'http://localhost:8080/api/v1';
+      const API_BASE = rawBase.endsWith('/api/v1') ? rawBase : (rawBase.endsWith('/') ? rawBase + 'api/v1' : rawBase + '/api/v1');
       const response = await fetch(`${API_BASE}/solicitacoes/usuario/${userId}`);
       if (!response.ok) {
         console.error('Fetch responded with non-OK status', response.status);
@@ -51,7 +52,8 @@ export function MinhasSolicitacoes() {
     }
 
     try {
-      const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8080';
+      const rawBase = import.meta.env.VITE_API_BASE || 'http://localhost:8080/api/v1';
+      const API_BASE = rawBase.endsWith('/api/v1') ? rawBase : (rawBase.endsWith('/') ? rawBase + 'api/v1' : rawBase + '/api/v1');
       const response = await fetch(`${API_BASE}/solicitacoes/${solicitacaoId}`, {
         method: 'DELETE',
       });

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Favoritos.css";
 
-export function Favoritos({ isLoggedIn, userName}) {
+export function Favoritos({ isLoggedIn }) {
   const navigate = useNavigate();
   const [favoritos, setFavoritos] = useState([]);
   const [loading, setLoading] = useState(true);

@@ -118,10 +118,7 @@ export function Header({ onLogin, onLogout, userName, isLoggedIn }) {
 
                       <div 
                         className="user-info" 
-                        onClick={() => {
-                          navigate("/acesso");
-                          closeMenu();
-                        }}
+                        onClick={() => setUserMenuOpen(!userMenuOpen)}
                       >
                         <div className="user-avatar">
                           <span className="user-initial">{userName[0].toUpperCase()}</span>
