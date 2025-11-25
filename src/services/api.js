@@ -1,9 +1,9 @@
-// Centraliza configuração de API para facilitar troca de ambiente
-// Fallback: se VITE_API_BASE não estiver definido em build (Vercel), usa domínio de produção conhecido.
-
-const RAW_BASE = (import.meta.env?.VITE_API_BASE || (typeof window !== 'undefined' && window.location.hostname.includes('vercel.app')
-  ? 'https://mapa-social-backend-production.up.railway.app/api/v1'
-  : 'http://localhost:8080/api/v1'));
+// Centraliza configuração de API e exige definição explícita de VITE_API_BASE.
+// Removido fallback implícito para evitar apontar para backend errado.
+if (!import.meta.env?.VITE_API_BASE) {
+  throw new Error('VITE_API_BASE não definido. Configure em Vercel ou .env.local para desenvolvimento.');
+}
+const RAW_BASE = import.meta.env.VITE_API_BASE;
 
 // Normaliza removendo barra final
 export const API_BASE = RAW_BASE.replace(/\/$/, '');
