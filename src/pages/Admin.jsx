@@ -7,6 +7,9 @@ function Admin({ isLoggedIn, userName}) {
   const [stats, setStats] = useState(null);
   const [sugestoesPendentes, setSugestoesPendentes] = useState([]);
   const [usuarios, setUsuarios] = useState([]);
+  const [noticias, setNoticias] = useState([]);
+  const [noticiaForm, setNoticiaForm] = useState({ titulo: '', categoria: '', resumo: '', conteudo: '', urlImagem: '' });
+  const [editandoNoticia, setEditandoNoticia] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const rawBase = import.meta.env.VITE_API_BASE || "http://localhost:8080/api/v1";
@@ -37,6 +40,8 @@ function Admin({ isLoggedIn, userName}) {
       fetchSugestoesPendentes();
     } else if (activeTab === "usuarios") {
       fetchUsuarios();
+    } else if (activeTab === "noticias") {
+      fetchNoticias();
     }
   }, [activeTab]);
 
@@ -243,6 +248,95 @@ function Admin({ isLoggedIn, userName}) {
     }
   };
 
+  const fetchNoticias = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(`${API_BASE}/noticias`);
+      if (response.ok) {
+        const data = await response.json();
+        setNoticias(data);
+      }
+    } catch (error) {
+      console.error("Erro ao buscar notícias:", error);
+      alert("Erro ao carregar notícias");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const salvarNoticia = async () => {
+    const { titulo, categoria, resumo, conteudo, urlImagem } = noticiaForm;
+    
+    if (!titulo || !categoria || !resumo) {
+      alert("❌ Título, categoria e resumo são obrigatórios");
+      return;
+    }
+
+    try {
+      const url = editandoNoticia 
+        ? `${API_BASE}/noticias/${editandoNoticia}` 
+        : `${API_BASE}/noticias`;
+      
+      const response = await fetch(url, {
+        method: editandoNoticia ? "PUT" : "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ titulo, categoria, resumo, conteudo, urlImagem })
+      });
+
+      if (response.ok) {
+        alert(editandoNoticia ? "✅ Notícia atualizada!" : "✅ Notícia criada!");
+        setNoticiaForm({ titulo: '', categoria: '', resumo: '', conteudo: '', urlImagem: '' });
+        setEditandoNoticia(null);
+        fetchNoticias();
+      } else {
+        alert("❌ Erro ao salvar notícia");
+      }
+    } catch (error) {
+      console.error("Erro ao salvar notícia:", error);
+      alert("❌ Erro ao salvar notícia");
+    }
+  };
+
+  const editarNoticia = (noticia) => {
+    setNoticiaForm({
+      titulo: noticia.titulo,
+      categoria: noticia.categoria,
+      resumo: noticia.resumo,
+      conteudo: noticia.conteudo || '',
+      urlImagem: noticia.urlImagem || ''
+    });
+    setEditandoNoticia(noticia.id);
+  };
+
+  const deletarNoticia = async (id) => {
+    if (!confirm("Deseja realmente excluir esta notícia?")) return;
+    
+    try {
+      const response = await fetch(`${API_BASE}/noticias/${id}`, { method: "DELETE" });
+      if (response.ok) {
+        alert("✅ Notícia excluída!");
+        fetchNoticias();
+      }
+    } catch (error) {
+      console.error("Erro ao excluir notícia:", error);
+      alert("❌ Erro ao excluir notícia");
+    }
+  };
+
+  const toggleAtivaNoticia = async (id, ativa) => {
+    try {
+      const action = ativa ? 'desativar' : 'ativar';
+      const response = await fetch(`${API_BASE}/noticias/${id}/${action}`, { method: "POST" });
+      if (response.ok) {
+        alert(`✅ Notícia ${ativa ? 'desativada' : 'ativada'}!`);
+        fetchNoticias();
+      }
+    } catch (error) {
+      console.error("Erro ao alterar status:", error);
+      alert("❌ Erro ao alterar status da notícia");
+    }
+  };
+
   return (
     <div className="admin-container">
       <div className="admin-sidebar">
@@ -279,6 +373,12 @@ function Admin({ isLoggedIn, userName}) {
             onClick={() => setActiveTab("categorias")}
           >
             🏷️ Categorias
+          </button>
+          <button
+            className={activeTab === "noticias" ? "nav-btn active" : "nav-btn"}
+            onClick={() => setActiveTab("noticias")}
+          >
+            📰 Notícias
           </button>
         </nav>
       </div>
@@ -593,6 +693,219 @@ function Admin({ isLoggedIn, userName}) {
           <div className="categorias-section">
             <h2>Gerenciar Categorias</h2>
             <p className="info-message">🚧 Em desenvolvimento - Criar, editar e excluir categorias</p>
+          </div>
+        )}
+
+        {!loading && activeTab === "noticias" && (
+          <div className="noticias-section">
+            <h2>📰 Gerenciar Notícias</h2>
+            
+            <div className="form-container" style={{
+              background: '#f8fafc',
+              padding: '24px',
+              borderRadius: '12px',
+              marginBottom: '24px',
+              border: '2px solid #e2e8f0'
+            }}>
+              <h3>{editandoNoticia ? '✏️ Editar Notícia' : '➕ Nova Notícia'}</h3>
+              <div className="form-group">
+                <label>Título *</label>
+                <input
+                  type="text"
+                  value={noticiaForm.titulo}
+                  onChange={(e) => setNoticiaForm({...noticiaForm, titulo: e.target.value})}
+                  placeholder="Título da notícia"
+                  style={{width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #cbd5e1'}}
+                />
+              </div>
+              <div className="form-group">
+                <label>Categoria *</label>
+                <select
+                  value={noticiaForm.categoria}
+                  onChange={(e) => setNoticiaForm({...noticiaForm, categoria: e.target.value})}
+                  style={{width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #cbd5e1'}}
+                >
+                  <option value="">Selecione...</option>
+                  <option value="Saúde">Saúde</option>
+                  <option value="Educação">Educação</option>
+                  <option value="Assistência Social">Assistência Social</option>
+                  <option value="Lazer">Lazer</option>
+                  <option value="Geral">Geral</option>
+                </select>
+              </div>
+              <div className="form-group">
+                <label>Resumo *</label>
+                <textarea
+                  value={noticiaForm.resumo}
+                  onChange={(e) => setNoticiaForm({...noticiaForm, resumo: e.target.value})}
+                  placeholder="Resumo da notícia (máx 500 caracteres)"
+                  rows="3"
+                  maxLength="500"
+                  style={{width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #cbd5e1'}}
+                />
+              </div>
+              <div className="form-group">
+                <label>Conteúdo</label>
+                <textarea
+                  value={noticiaForm.conteudo}
+                  onChange={(e) => setNoticiaForm({...noticiaForm, conteudo: e.target.value})}
+                  placeholder="Conteúdo completo da notícia"
+                  rows="6"
+                  style={{width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #cbd5e1'}}
+                />
+              </div>
+              <div className="form-group">
+                <label>URL da Imagem</label>
+                <input
+                  type="text"
+                  value={noticiaForm.urlImagem}
+                  onChange={(e) => setNoticiaForm({...noticiaForm, urlImagem: e.target.value})}
+                  placeholder="/assets/images/noticia.png"
+                  style={{width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #cbd5e1'}}
+                />
+              </div>
+              <div style={{display: 'flex', gap: '10px'}}>
+                <button 
+                  onClick={salvarNoticia}
+                  style={{
+                    padding: '12px 24px',
+                    background: '#10b981',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '8px',
+                    cursor: 'pointer',
+                    fontWeight: '600'
+                  }}
+                >
+                  {editandoNoticia ? '💾 Salvar Alterações' : '➕ Criar Notícia'}
+                </button>
+                {editandoNoticia && (
+                  <button 
+                    onClick={() => {
+                      setEditandoNoticia(null);
+                      setNoticiaForm({ titulo: '', categoria: '', resumo: '', conteudo: '', urlImagem: '' });
+                    }}
+                    style={{
+                      padding: '12px 24px',
+                      background: '#64748b',
+                      color: 'white',
+                      border: 'none',
+                      borderRadius: '8px',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    ❌ Cancelar
+                  </button>
+                )}
+              </div>
+            </div>
+
+            <div className="noticias-lista">
+              <h3>📋 Notícias Cadastradas ({noticias.length})</h3>
+              {noticias.length === 0 ? (
+                <p className="empty-message">Nenhuma notícia cadastrada</p>
+              ) : (
+                <div style={{display: 'flex', flexDirection: 'column', gap: '16px'}}>
+                  {noticias.map(noticia => (
+                    <div key={noticia.id} style={{
+                      background: 'white',
+                      padding: '20px',
+                      borderRadius: '12px',
+                      border: '1px solid #e2e8f0',
+                      display: 'flex',
+                      gap: '16px',
+                      alignItems: 'start'
+                    }}>
+                      {noticia.urlImagem && (
+                        <img 
+                          src={noticia.urlImagem} 
+                          alt={noticia.titulo}
+                          style={{
+                            width: '120px',
+                            height: '80px',
+                            objectFit: 'cover',
+                            borderRadius: '8px'
+                          }}
+                        />
+                      )}
+                      <div style={{flex: 1}}>
+                        <div style={{display: 'flex', gap: '8px', alignItems: 'center', marginBottom: '8px'}}>
+                          <h4 style={{margin: 0}}>{noticia.titulo}</h4>
+                          <span style={{
+                            padding: '4px 12px',
+                            background: '#e0e7ff',
+                            color: '#4338ca',
+                            borderRadius: '12px',
+                            fontSize: '12px',
+                            fontWeight: '600'
+                          }}>
+                            {noticia.categoria}
+                          </span>
+                          <span style={{
+                            padding: '4px 12px',
+                            background: noticia.ativa ? '#d1fae5' : '#fee2e2',
+                            color: noticia.ativa ? '#065f46' : '#991b1b',
+                            borderRadius: '12px',
+                            fontSize: '12px',
+                            fontWeight: '600'
+                          }}>
+                            {noticia.ativa ? '✅ Ativa' : '❌ Inativa'}
+                          </span>
+                        </div>
+                        <p style={{color: '#64748b', margin: '8px 0', fontSize: '14px'}}>{noticia.resumo}</p>
+                        <p style={{fontSize: '12px', color: '#94a3b8'}}>
+                          📅 {new Date(noticia.dataPublicacao).toLocaleDateString('pt-BR')}
+                        </p>
+                      </div>
+                      <div style={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
+                        <button 
+                          onClick={() => editarNoticia(noticia)}
+                          style={{
+                            padding: '8px 16px',
+                            background: '#3b82f6',
+                            color: 'white',
+                            border: 'none',
+                            borderRadius: '6px',
+                            cursor: 'pointer',
+                            fontSize: '14px'
+                          }}
+                        >
+                          ✏️ Editar
+                        </button>
+                        <button 
+                          onClick={() => toggleAtivaNoticia(noticia.id, noticia.ativa)}
+                          style={{
+                            padding: '8px 16px',
+                            background: noticia.ativa ? '#f59e0b' : '#10b981',
+                            color: 'white',
+                            border: 'none',
+                            borderRadius: '6px',
+                            cursor: 'pointer',
+                            fontSize: '14px'
+                          }}
+                        >
+                          {noticia.ativa ? '🚫 Desativar' : '✅ Ativar'}
+                        </button>
+                        <button 
+                          onClick={() => deletarNoticia(noticia.id)}
+                          style={{
+                            padding: '8px 16px',
+                            background: '#ef4444',
+                            color: 'white',
+                            border: 'none',
+                            borderRadius: '6px',
+                            cursor: 'pointer',
+                            fontSize: '14px'
+                          }}
+                        >
+                          🗑️ Excluir
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         )}
       </div>

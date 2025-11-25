@@ -7,6 +7,8 @@ export function Noticias({ isLoggedIn }) {
   const [noticias, setNoticias] = useState([]);
   const [loading, setLoading] = useState(true);
   const [categoriaFiltro, setCategoriaFiltro] = useState("Todas");
+  const rawBase = import.meta.env.VITE_API_BASE || 'http://localhost:8080/api/v1';
+  const API_BASE = rawBase.endsWith('/api/v1') ? rawBase : (rawBase.endsWith('/') ? rawBase + 'api/v1' : rawBase + '/api/v1');
 
   useEffect(() => {
     if (!isLoggedIn) {
@@ -14,51 +16,48 @@ export function Noticias({ isLoggedIn }) {
       return;
     }
     
-    setLoading(true);
-    setTimeout(() => {
-      setNoticias([
-        {
-          id: 1,
-          titulo: "Nova UBS inaugurada no Jardim das Flores",
-          categoria: "Saúde",
-          resumo: "A nova Unidade Básica de Saúde começou a atender a população da região norte da cidade.",
-          data: "12/11/2025",
-          imagem: "/assets/images/saude-publica.png"
-        },
-        {
-          id: 2,
-          titulo: "Inscrições abertas para cursos profissionalizantes gratuitos",
-          categoria: "Educação",
-          resumo: "SENAI oferece 200 vagas em cursos de capacitação profissional para jovens e adultos.",
-          data: "10/11/2025",
-          imagem: "/assets/images/cursos-profissionalizantes.png"
-        },
-        {
-          id: 3,
-          titulo: "Programa de distribuição de alimentos ampliado",
-          categoria: "Assistência Social",
-          resumo: "Prefeitura aumenta em 30% a distribuição de cestas básicas para famílias em situação de vulnerabilidade.",
-          data: "08/11/2025",
-          imagem: "/assets/images/alimentacao.png"
-        },
-        {
-          id: 4,
-          titulo: "Novo parque infantil no Bairro Central",
-          categoria: "Lazer",
-          resumo: "Espaço de lazer com playground, quadras e área verde foi entregue à comunidade.",
-          data: "05/11/2025",
-          imagem: "/assets/images/lazer.png"
-        },
-      ]);
+    carregarNoticias();
+  }, [isLoggedIn]);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      carregarNoticias();
+    }
+  }, [categoriaFiltro]);
+
+  const carregarNoticias = async () => {
+    try {
+      setLoading(true);
+      let url = `${API_BASE}/noticias`;
+      
+      if (categoriaFiltro && categoriaFiltro !== "Todas") {
+        url = `${API_BASE}/noticias/categoria/${encodeURIComponent(categoriaFiltro)}`;
+      }
+
+      const response = await fetch(url);
+      
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      
+      const data = await response.json();
+      const mapped = (data || []).map(n => ({
+        id: n.id,
+        titulo: n.titulo,
+        categoria: n.categoria,
+        resumo: n.resumo,
+        conteudo: n.conteudo,
+        data: n.dataPublicacao ? new Date(n.dataPublicacao).toLocaleDateString('pt-BR') : '',
+        imagem: n.urlImagem || "/assets/images/default.png"
+      }));
+      setNoticias(mapped);
+    } catch (error) {
+      console.error('Erro ao carregar notícias:', error);
+      setNoticias([]);
+    } finally {
       setLoading(false);
-    }, 500);
-  }, []);
+    }
+  };
 
   const categorias = ["Todas", "Saúde", "Educação", "Assistência Social", "Lazer"];
-
-  const noticiasFiltradas = categoriaFiltro === "Todas" 
-    ? noticias 
-    : noticias.filter(n => n.categoria === categoriaFiltro);
 
   return (
     <div className="noticias-page">
@@ -88,13 +87,13 @@ export function Noticias({ isLoggedIn }) {
 
           {loading ? (
             <p className="loading-text">Carregando notícias...</p>
-          ) : noticiasFiltradas.length === 0 ? (
+          ) : noticias.length === 0 ? (
             <div className="empty-state">
               <p>Nenhuma notícia encontrada nesta categoria.</p>
             </div>
           ) : (
             <div className="noticias-grid">
-              {noticiasFiltradas.map(noticia => (
+              {noticias.map(noticia => (
                 <div key={noticia.id} className="noticia-card">
                   <div className="noticia-imagem">
                     <img src={noticia.imagem} alt={noticia.titulo} />

@@ -103,6 +103,34 @@
   white-space: nowrap;
 }
 
+.btn-favorito {
+  background: #f1f5f9;
+  color: #475569;
+  border: 2px solid #e2e8f0;
+}
+
+.btn-favorito:hover {
+  background: #fee2e2;
+  color: #dc2626;
+  border-color: #fecaca;
+  transform: scale(1.02);
+}
+
+.btn-favorito.favoritado {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: white;
+  border-color: #dc2626;
+}
+
+.btn-favorito.favoritado:hover {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+}
+
+.btn-favorito:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .btn-solicitar {
   background: linear-gradient(135deg, #10b981 0%, #059669 100%);
   color: white;

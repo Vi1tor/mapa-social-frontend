@@ -1,9 +1,48 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './ServicoSocialCard.css';
 
 export function ServicoSocialCard({ servico, onNavigate }) {
   const navigate = useNavigate();
+  const [favoritado, setFavoritado] = useState(false);
+  const [loadingFavorito, setLoadingFavorito] = useState(false);
+  const userId = localStorage.getItem('userId');
+  const rawBase = import.meta.env.VITE_API_BASE || 'http://localhost:8080/api/v1';
+  const API_BASE = rawBase.endsWith('/api/v1') ? rawBase : (rawBase.endsWith('/') ? rawBase + 'api/v1' : rawBase + '/api/v1');
+
+  const handleAdicionarFavorito = async () => {
+    if (!userId) {
+      alert('⚠️ Faça login para adicionar favoritos');
+      navigate('/login');
+      return;
+    }
+
+    try {
+      setLoadingFavorito(true);
+      const response = await fetch(`${API_BASE}/favoritos`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          usuarioId: parseInt(userId),
+          servicoSocialId: servico.id
+        })
+      });
+
+      if (response.ok) {
+        setFavoritado(true);
+        alert('✅ Serviço adicionado aos favoritos!');
+      } else if (response.status === 400) {
+        alert('ℹ️ Este serviço já está nos seus favoritos');
+      } else {
+        throw new Error('Erro ao adicionar favorito');
+      }
+    } catch (error) {
+      console.error('Erro ao adicionar favorito:', error);
+      alert('❌ Não foi possível adicionar aos favoritos');
+    } finally {
+      setLoadingFavorito(false);
+    }
+  };
   
   const handleNavigate = () => {
     // Detecta se está no mobile para abrir o app nativo de mapas
@@ -79,25 +118,33 @@ export function ServicoSocialCard({ servico, onNavigate }) {
 
       <div className="servico-card-actions">
         <button 
+          className={`btn-favorito ${favoritado ? 'favoritado' : ''}`}
+          onClick={handleAdicionarFavorito}
+          disabled={loadingFavorito}
+          title={favoritado ? "Já está nos favoritos" : "Adicionar aos favoritos"}
+        >
+          {loadingFavorito ? '⏳' : (favoritado ? '❤️ Favoritado' : '🤍 Favoritar')}
+        </button>
+        <button 
           className="btn-solicitar"
           onClick={() => navigate(`/solicitar-servico/${servico.id}`)}
           title="Solicitar este serviço"
         >
-          📋 Solicitar Serviço
+          📋 Solicitar
         </button>
         <button 
           className="btn-ver-mapa"
           onClick={handleVerNoMapa}
           title="Ver no mapa do site"
         >
-          🗺️ Ver no Mapa
+          🗺️ Mapa
         </button>
         <button 
           className="btn-navegar"
           onClick={handleNavigate}
           title="Abrir rotas no Google Maps"
         >
-          🧭 Como Chegar
+          🧭 Rotas
         </button>
       </div>
     </div>
