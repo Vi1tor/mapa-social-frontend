@@ -12,7 +12,7 @@ function Admin({ isLoggedIn, userName}) {
   const [editandoNoticia, setEditandoNoticia] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const rawBase = import.meta.env.VITE_API_BASE || "http://localhost:8080/api/v1";
+  const rawBase = import.meta.env.VITE_API_BASE || "http://localhost:5000/api/v1";
   const API_BASE = rawBase.endsWith("/api/v1") ? rawBase : (rawBase.endsWith("/") ? rawBase + "api/v1" : rawBase + "/api/v1");
   const API_URL = `${API_BASE}/admin`;
   const userRole = localStorage.getItem('userRole');

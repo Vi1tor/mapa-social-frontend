@@ -19,7 +19,7 @@ https://mapa-social-backend-production.up.railway.app/api/v1
 ### Local Development
 Crie `.env.local` na raiz do frontend:
 ```
-VITE_API_BASE=http://localhost:8080/api/v1
+VITE_API_BASE=http://localhost:5000/api/v1
 ```
 Inicie o backend localmente e rode `npm run dev`.
 

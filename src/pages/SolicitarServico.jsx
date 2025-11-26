@@ -31,7 +31,7 @@ export function SolicitarServico() {
       return;
     }
 
-    const rawBase = import.meta.env.VITE_API_BASE || 'http://localhost:8080/api/v1';
+    const rawBase = import.meta.env.VITE_API_BASE || 'http://localhost:5000/api/v1';
     const API_BASE = rawBase.endsWith('/api/v1') ? rawBase : (rawBase.endsWith('/') ? rawBase + 'api/v1' : rawBase + '/api/v1');
     fetch(`${API_BASE}/servicos/${id}`)
       .then(async res => {
@@ -73,7 +73,7 @@ export function SolicitarServico() {
     setEnviando(true);
 
     try {
-      const rawBase = import.meta.env.VITE_API_BASE || 'http://localhost:8080/api/v1';
+      const rawBase = import.meta.env.VITE_API_BASE || 'http://localhost:5000/api/v1';
       const API_BASE = rawBase.endsWith('/api/v1') ? rawBase : (rawBase.endsWith('/') ? rawBase + 'api/v1' : rawBase + '/api/v1');
       const response = await fetch(`${API_BASE}/solicitacoes`, {
         method: 'POST',
